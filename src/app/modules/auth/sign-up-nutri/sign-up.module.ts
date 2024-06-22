@@ -10,14 +10,12 @@ import { FuseCardModule } from '@fuse/components/card';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { SharedModule } from 'app/shared/shared.module';
 import { AuthSignUpComponent } from 'app/modules/auth/sign-up/sign-up.component';
-import { authSignupRoutes } from 'app/modules/auth/sign-up/sign-up.routing';
+import { authSignupRoutes } from 'app/modules/auth/sign-up-nutri/sign-up.routing';
 import { AuthSignUpNutriComponent } from './sign-up.component';
 
 @NgModule({
-    declarations: [
-        AuthSignUpNutriComponent
-    ],
-    imports     : [
+    declarations: [AuthSignUpNutriComponent],
+    imports: [
         RouterModule.forChild(authSignupRoutes),
         MatButtonModule,
         MatCheckboxModule,
@@ -27,9 +25,7 @@ import { AuthSignUpNutriComponent } from './sign-up.component';
         MatProgressSpinnerModule,
         FuseCardModule,
         FuseAlertModule,
-        SharedModule
-    ]
+        SharedModule,
+    ],
 })
-export class AuthSignUpNutriModule
-{
-}
+export class AuthSignUpNutriModule {}

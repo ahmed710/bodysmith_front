@@ -177,6 +177,134 @@ export class AuthService {
                 })
             );
     }
+    /**
+     * Sign up as User
+     *
+     * @param user
+     */
+    signUpUser(user: {
+        firstName: string;
+        lastName: string;
+        nickName: string;
+        birthDate: string;
+        adresse: string;
+        email: string;
+        password: string;
+        passwordconfirm: string;
+        phoneNumber: number;
+    }): Observable<any> {
+        console.log('mrgl ?', user);
+        return this._httpClient
+            .post('http://127.0.0.1:9090/user/signup', user)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if (error.error && error.error.errors) {
+                        // Handle structured errors from backend
+                        const errorMessage = error.error.errors
+                            .map((e) => e.msg)
+                            .join(', ');
+                        return throwError(errorMessage);
+                    } else {
+                        // Handle other errors (e.g., server errors)
+                        let errorMessage =
+                            'An error occurred. Please try again later.';
+                        if (error.error instanceof ErrorEvent) {
+                            errorMessage = `Error: ${error.error.message}`;
+                        } else {
+                            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                        }
+                        console.error(errorMessage);
+                        return throwError(errorMessage);
+                    }
+                })
+            );
+    }
+
+    /**
+     * Sign up as Coach
+     *
+     * @param user
+     */
+    signUpCoach(user: {
+        firstName: string;
+        lastName: string;
+        nickName: string;
+        birthDate: string;
+        adresse: string;
+        email: string;
+        password: string;
+        passwordconfirm: string;
+        phoneNumber: number;
+    }): Observable<any> {
+        console.log('mrgl ?', user);
+        return this._httpClient
+            .post('http://127.0.0.1:9090/coach/signup', user)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if (error.error && error.error.errors) {
+                        // Handle structured errors from backend
+                        const errorMessage = error.error.errors
+                            .map((e) => e.msg)
+                            .join(', ');
+                        return throwError(errorMessage);
+                    } else {
+                        // Handle other errors (e.g., server errors)
+                        let errorMessage =
+                            'An error occurred. Please try again later.';
+                        if (error.error instanceof ErrorEvent) {
+                            errorMessage = `Error: ${error.error.message}`;
+                        } else {
+                            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                        }
+                        console.error(errorMessage);
+                        return throwError(errorMessage);
+                    }
+                })
+            );
+    }
+
+    /**
+     * Sign up as nutritionniste
+     *
+     * @param user
+     */
+    signUpNutri(user: {
+        firstName: string;
+        lastName: string;
+        nickName: string;
+        birthDate: string;
+        adresse: string;
+        email: string;
+        password: string;
+        passwordconfirm: string;
+        phoneNumber: number;
+    }): Observable<any> {
+        console.log('mrgl ?', user);
+        return this._httpClient
+            .post('http://127.0.0.1:9090/nutritionniste/signup', user)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if (error.error && error.error.errors) {
+                        // Handle structured errors from backend
+                        const errorMessage = error.error.errors
+                            .map((e) => e.msg)
+                            .join(', ');
+                        return throwError(errorMessage);
+                    } else {
+                        // Handle other errors (e.g., server errors)
+                        let errorMessage =
+                            'An error occurred. Please try again later.';
+                        if (error.error instanceof ErrorEvent) {
+                            errorMessage = `Error: ${error.error.message}`;
+                        } else {
+                            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                        }
+                        console.error(errorMessage);
+                        return throwError(errorMessage);
+                    }
+                })
+            );
+    }
 
     /**
      * Unlock session

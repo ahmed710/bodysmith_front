@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FuseCardModule } from '@fuse/components/card';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { SharedModule } from 'app/shared/shared.module';
-import { authSignupRoutes } from 'app/modules/auth/sign-up/sign-up.routing';
+import { authSignupRoutes } from 'app/modules/auth/sign-up-user/sign-up.routing';
 import { AuthSignUpUserComponent } from './sign-up.component';
 
 @NgModule({

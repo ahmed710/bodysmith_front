@@ -54,7 +54,7 @@ export class AuthSignUpCoachComponent implements OnInit {
         );
     }
 
-    signUp(): void {
+    signUpCoach(): void {
         if (this.signUpForm.invalid) {
             return;
         }
@@ -62,7 +62,7 @@ export class AuthSignUpCoachComponent implements OnInit {
         this.signUpForm.disable();
         this.showAlert = false;
 
-        this._authService.signUp(this.signUpForm.value).subscribe(
+        this._authService.signUpCoach(this.signUpForm.value).subscribe(
             (response) => {
                 this._router.navigateByUrl('/confirmation-required');
             },
