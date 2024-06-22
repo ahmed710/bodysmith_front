@@ -1,8 +1,8 @@
-import { Route } from '@angular/router';
-import { AuthGuard } from 'app/core/auth/guards/auth.guard';
-import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
-import { LayoutComponent } from 'app/layout/layout.component';
-import { InitialDataResolver } from 'app/app.resolvers';
+import {Route} from '@angular/router';
+import {AuthGuard} from 'app/core/auth/guards/auth.guard';
+import {NoAuthGuard} from 'app/core/auth/guards/noAuth.guard';
+import {LayoutComponent} from 'app/layout/layout.component';
+import {InitialDataResolver} from 'app/app.resolvers';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -74,11 +74,12 @@ export const appRoutes: Route[] = [
 
             // Dashboards
             {path: 'dashboards', children: [
+                {path: 'reclamation', loadChildren: () => import('app/modules/admin/dashboards/reclamation/reclamation.module').then(m => m.ReclamationModule)},
                 {path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.module').then(m => m.ProjectModule)},
                 {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule)},
                 {path: 'finance', loadChildren: () => import('app/modules/admin/dashboards/finance/finance.module').then(m => m.FinanceModule)},
                 {path: 'crypto', loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.module').then(m => m.CryptoModule)},
-            ]},
+                ]},
 
             // Apps
             {path: 'apps', children: [
