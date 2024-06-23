@@ -14,15 +14,17 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
-import {ReclamationComponent} from "./reclamation.component";
-import {ReclamationRoutes} from "./reclamation.routing";
+import {ReclamationDetailsComponent} from "./reclamation-details.component";
+import {ReclamationDetailsRoutes} from "./reclamation-details.routing";
+import {MatLegacyCardModule} from "@angular/material/legacy-card";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
     declarations: [
-        ReclamationComponent
+        ReclamationDetailsComponent
     ],
     imports: [
-        RouterModule.forChild(ReclamationRoutes),
+        RouterModule.forChild(ReclamationDetailsRoutes),
         SharedModule,
         MatButtonModule,
         MatDividerModule,
@@ -30,9 +32,10 @@ import {ReclamationRoutes} from "./reclamation.routing";
         MatMenuModule,
         MatProgressBarModule,
         MatSortModule,
-        MatTableModule
+        MatTableModule,
+        MatCardModule
     ]
 })
-export class ReclamationModule
+export class ReclamationDetailsModule
 {
 }

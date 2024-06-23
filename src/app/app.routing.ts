@@ -74,10 +74,11 @@ export const appRoutes: Route[] = [
 
             // Dashboards
             {path: 'dashboards', children: [
-                {path: 'reclamation', loadChildren: () => import('app/modules/admin/dashboards/reclamation/reclamation.module').then(m => m.ReclamationModule)},
                 {path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.module').then(m => m.ProjectModule)},
                 {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule)},
-                {path: 'finance', loadChildren: () => import('app/modules/admin/dashboards/finance/finance.module').then(m => m.FinanceModule)},
+                {path: 'reclamation',
+                    children: [{path:'',loadChildren: () => import('app/modules/admin/dashboards/reclamation/reclamation.module').then(m => m.ReclamationModule)},
+                            {path:':id',loadChildren: () => import('app/modules/admin/dashboards/reclamation-details/reclamation-details.module').then(m => m.ReclamationDetailsModule)}],},
                 {path: 'crypto', loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.module').then(m => m.CryptoModule)},
                 ]},
 

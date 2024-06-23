@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class ReclamationService
+export class ReclamationDetailsService
 {
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
@@ -35,9 +35,8 @@ export class ReclamationService
     /**
      * Get data
      */
-    getData(): Observable<any>
-    {
-        return this._httpClient.get('http://127.0.0.1:9090/reclamation/').pipe(
+    getReclamationById(id:number) {
+        return this._httpClient.get('http://127.0.0.1:9090/reclamation/'+id).pipe(
             tap((response: any) => {
                 this._data.next(response);
                 console.log(response);
