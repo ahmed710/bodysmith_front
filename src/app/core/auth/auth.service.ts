@@ -41,7 +41,10 @@ export class AuthService {
      * @param email
      */
     forgotPassword(email: string): Observable<any> {
-        return this._httpClient.post('api/auth/forgot-password', email);
+        return this._httpClient.post(
+            'http://127.0.0.1:9090/auth/forgot-password/',
+            { email }
+        );
     }
 
     /**
@@ -49,8 +52,11 @@ export class AuthService {
      *
      * @param password
      */
-    resetPassword(password: string): Observable<any> {
-        return this._httpClient.post('api/auth/reset-password', password);
+    resetPassword(token: string, password: string): Observable<any> {
+        return this._httpClient.post(
+            'http://127.0.0.1:9090/auth/reset-password/',
+            { token, password }
+        );
     }
 
     /**
