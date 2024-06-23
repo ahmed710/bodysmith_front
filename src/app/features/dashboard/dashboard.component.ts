@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';import { MatTableDataSource } from '@angular/material/table';
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,20 +6,7 @@ import { Component, OnInit } from '@angular/core';import { MatTableDataSource } 
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
-}
-
-
-export class CoachesComponent implements OnInit {
-  coaches: any[] = []; // Example array, replace with your actual data
-
-  dataSource = new MatTableDataSource<any>(this.coaches);
-
-  constructor() { }
-
-  ngOnInit(): void {
-    // Initialize your coaches array
-  }
+  ngOnInit(): void {}
 }

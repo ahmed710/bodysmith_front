@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CoachesService {
-  private baseUrl = 'http://127.0.0.1:9090/user/'; // Replace with your actual API URL
+  private baseUrl = 'http://127.0.0.1:9090/coach/'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) { }
 

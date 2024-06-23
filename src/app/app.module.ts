@@ -8,7 +8,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './core/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ReservationsModule } from './features/reservations/reservations.module';
-import { SessionsModule } from './features/sessions/sessions.module';  // Corrected path
+import { SessionsModule } from './features/sessions/sessions.module'; 
+import { CoachesModule } from './features/coaches/coaches.module'; 
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SessionsModule } from './features/sessions/sessions.module';  // Correc
     SharedModule,
     AppRoutingModule,
     ReservationsModule,
-    SessionsModule
+    SessionsModule,
+    CoachesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

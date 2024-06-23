@@ -1,14 +1,24 @@
-// src/app/features/reservations/reservations.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReservationsService } from './reservations.service';
 
+import { ReservationsRoutingModule } from './reservations-routing.module';
+import { ReservationsComponent } from './reservation.component';
+import { MatTableModule } from '@angular/material/table';
+import { MaterialModule } from '../../shared/material.module'; 
+import { ReactiveFormsModule } from '@angular/forms'; // Importer ReactiveFormsModule
+import { ReservationFormComponent } from './reservation-form.component';
 @NgModule({
-  imports: [
-    CommonModule
+  
+  declarations: [
+    ReservationsComponent,
+    ReservationFormComponent
   ],
-  providers: [
-    ReservationsService
+  imports: [
+    CommonModule,
+    ReservationsRoutingModule,
+    MatTableModule,
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class ReservationsModule { }

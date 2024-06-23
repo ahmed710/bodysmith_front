@@ -1,0 +1,51 @@
+<!-- <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="seanceId">Séance</label>
+      <select formControlName="seanceId" id="seanceId">
+        <option *ngFor="let seance of seances" [value]="seance.id">{{ seance.name }}</option>
+      </select>
+      <div *ngIf="reservationForm.get('seanceId')!.invalid && reservationForm.get('seanceId')!.touched">
+        Sélectionnez une séance.
+      </div>
+    </div>
+  
+    <div>
+      <label for="coachId">Coach</label>
+      <select formControlName="coachId" id="coachId">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+      </select>
+      <div *ngIf="reservationForm.get('coachId')!.invalid && reservationForm.get('coachId')!.touched">
+        Sélectionnez un coach.
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="reservationForm.invalid">Créer réservation</button>
+  </form>
+   -->
+  
+
+
+   <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="seanceId">Séance</label>
+      <select formControlName="seanceId" id="seanceId">
+        <option *ngFor="let seance of seances" [value]="seance.id">{{ seance.name }}</option>
+      </select>
+      <div *ngIf="reservationForm.get('seanceId')?.invalid && reservationForm.get('seanceId')?.touched">
+        Sélectionnez une séance.
+      </div>
+    </div>
+  
+    <div>
+      <label for="coachId">Coach</label>
+      <select formControlName="coachId" id="coachId">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+      </select>
+      <div *ngIf="reservationForm.get('coachId')?.invalid && reservationForm.get('coachId')?.touched">
+        Sélectionnez un coach.
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="reservationForm.invalid">Créer réservation</button>
+  </form>
+  

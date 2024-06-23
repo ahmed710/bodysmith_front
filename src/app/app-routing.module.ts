@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'coaches', loadChildren: () => import('./features/coaches/coaches.module').then(m => m.CoachesModule) },
   { path: 'reservations', loadChildren: () => import('./features/reservations/reservations.module').then(m => m.ReservationsModule) },
-  { path: 'sessions', loadChildren: () => import('./features/sessions/sessions.module').then(m => m.SessionsModule) }
+  { path: 'sessions', loadChildren: () => import('./features/sessions/sessions.module').then(m => m.SessionsModule) },
+  { path: 'reservations/reserver', loadChildren: () => import('./features/reservations/reservations.module').then(m => m.ReservationsModule) }
 ];
 
 @NgModule({

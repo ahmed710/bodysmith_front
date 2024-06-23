@@ -32,6 +32,12 @@ export class CoachesComponent implements OnInit {
     });
   }
 
+  editCoach(coach: any): void {
+    console.log('Editing coach', coach);
+    // Implement your edit logic here 
+  }
+
+
   deleteCoach(id: string): void {
     this.coachesService.deleteCoach(id).subscribe(() => {
       this.coaches = this.coaches.filter(c => c.id !== id);

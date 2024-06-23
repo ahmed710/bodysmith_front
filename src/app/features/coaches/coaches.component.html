@@ -1,21 +1,16 @@
-<div>
-    <h1>Coaches</h1>
-    <table mat-table [dataSource]="coaches">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let coach"> {{ coach.name }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let coach">
-          <button mat-button (click)="editCoach(coach)">Edit</button>
-          <button mat-button (click)="deleteCoach(coach.id)">Delete</button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="['name', 'actions']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['name', 'actions'];"></tr>
-    </table>
-  </div>
-  
+<!-- coaches.component.html -->
+   <h2>Coaches List</h2>
+<div *ngIf="coaches.length > 0">
+  <h2>Coaches List</h2>
+  <ul>
+    <li *ngFor="let coach of coaches">
+      <p>{{ coach.firstName }} {{ coach.lastName }}</p>
+      <p>{{ coach.email }}</p>
+      <!-- Display other coach details as needed -->
+      <button (click)="editCoach(coach)">Edit</button>
+    </li>
+  </ul>
+</div>
+<div *ngIf="coaches.length === 0">
+  <p>No coaches found.</p>
+</div>
