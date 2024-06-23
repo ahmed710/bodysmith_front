@@ -17,14 +17,6 @@ import { coachesRoutes } from './coaches.routing';
     ],
     imports     : [
         RouterModule.forChild(coachesRoutes),
-        MatButtonModule,
-        MatDividerModule,
-        MatIconModule,
-        MatMenuModule,
-        MatProgressBarModule,
-        MatSortModule,
-        MatTableModule,
-        SharedModule
     ]
 })
 export class CoachesModule

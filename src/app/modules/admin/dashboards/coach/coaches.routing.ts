@@ -7,8 +7,5 @@ export const coachesRoutes: Routes = [
     {
       path: '',
       component: CoachesComponent,
-      resolve: {
-        data: CoachesResolver
-      }
     }
   ];

@@ -24,11 +24,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link : '/dashboards/analytics'
             },
             {
-                id   : 'dashboards.finance',
-                title: 'Finance',
+                id   : 'dashboards.coaches',
+                title: 'Coaches',
                 type : 'basic',
                 icon : 'heroicons_outline:cash',
-                link : '/dashboards/finance'
+                link : '/dashboards/coaches'
             },
             {
                 id   : 'dashboards.crypto',
