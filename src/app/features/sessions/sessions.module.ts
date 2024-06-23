@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { SessionsRoutingModule } from './sessions-routing.module';
 import { SessionsComponent } from './sessions.component';
 import { MatTableModule } from '@angular/material/table';
-import { MaterialModule } from '../../shared/material.module'; 
-import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule if needed
-import { AddSeanceFormModule } from './add-seance-form.module'; // Adjust the path as needed
+import { MaterialModule } from '../../shared/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import {AddSeanceFormModule} from "../add-seance/add-seance-form.module"; // Import ReactiveFormsModule if needed
+
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { AddSeanceFormModule } from './add-seance-form.module'; // Adjust the pa
     MatTableModule,
     MaterialModule,
     AddSeanceFormModule,
-    ReactiveFormsModule // Import ReactiveFormsModule here if not already imported in AddSeanceFormModule
+    ReactiveFormsModule
   ]
 })
 export class SessionsModule { }

@@ -11,7 +11,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './core/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ReservationsModule } from './features/reservations/reservations.module';
-import { SessionsModule } from './features/sessions/sessions.module'; 
+import { SessionsModule } from './features/sessions/sessions.module';
 import { CoachesModule } from './features/coaches/coaches.module';
 
 @NgModule({
@@ -25,10 +25,7 @@ import { CoachesModule } from './features/coaches/coaches.module';
     CoreModule,
     SharedModule,
     AppRoutingModule,
-    ReservationsModule,
-    SessionsModule,
-    CoachesModule,
-    MatSidenavModule, 
+    MatSidenavModule,
     MatToolbarModule,
     MatListModule
   ],

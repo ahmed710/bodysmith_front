@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { AddSeanceFormComponent } from './session-form.component'; // Adjust the path as per your actual folder structure
+import {AddSeanceFormComponent} from "./session-form.component";
 
 @NgModule({
   declarations: [
@@ -13,6 +12,7 @@ import { AddSeanceFormComponent } from './session-form.component'; // Adjust the
     ReactiveFormsModule
   ],
   exports: [
+    AddSeanceFormComponent,
     AddSeanceFormComponent
   ]
 })

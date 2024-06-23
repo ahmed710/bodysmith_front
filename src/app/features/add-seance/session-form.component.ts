@@ -4,8 +4,7 @@ import { SessionsService } from '../sessions/sessions.service'; // Adjust the pa
 
 @Component({
   selector: 'app-add-seance-form',
-  templateUrl: './add-seance-form.component.html', // Correct the template file path
-  styleUrls: ['./add-seance-form.component.css']
+  templateUrl: './session-form.component.html', // Correct the template file path
 })
 export class AddSeanceFormComponent implements OnInit {
   seanceForm!: FormGroup;

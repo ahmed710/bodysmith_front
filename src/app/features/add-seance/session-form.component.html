@@ -2,7 +2,7 @@
   <div>
     <label for="name">Name</label>
     <input type="text" formControlName="name" id="name">
-    <div *ngIf="seanceForm.get('name').invalid && seanceForm.get('name').touched">
+    <div *ngIf="seanceForm?.get('name')?.invalid && seanceForm?.get('name')?.touched">
       Name is required.
     </div>
   </div>
@@ -10,7 +10,7 @@
   <div>
     <label for="description">Description</label>
     <textarea formControlName="description" id="description"></textarea>
-    <div *ngIf="seanceForm.get('description').invalid && seanceForm.get('description').touched">
+    <div *ngIf="seanceForm?.get('description')?.invalid && seanceForm?.get('description')?.touched">
       Description is required.
     </div>
   </div>
