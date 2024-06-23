@@ -1,0 +1,46 @@
+<div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+    <div class="flex flex-col p-6 pb-4">
+        <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Reclamation Numéro</div>
+                <div class="text-secondary font-medium">{{id}}</div>
+            </div>
+            <div class="ml-2">
+                <button
+                    class="h-6 min-h-6 px-2 rounded-full bg-hover"
+                    mat-button
+                    (click)="getData()">
+                    <span class="font-medium text-sm text-secondary">Afficher plus </span>
+                </button>
+            </div>
+
+        </div>
+        <div *ngIf="clicked==true " class="container">
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Title : </h1>
+                    {{data.title}}</mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content><h1>Description : </h1>{{data.description}}</mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content> <h1>Etat : </h1>{{data.etat}}</mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content><h1>Status : </h1>{{data.status}}</mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content><h1>Email : </h1>{{data.email}}</mat-card-content>
+            </mat-card>            <mat-card appearance="outlined">
+            <mat-card-content> <h1>Numéro de Téléphone : </h1>{{data.numTelReclamation}}</mat-card-content>
+        </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content><h1>Crée en  : </h1> {{data.createdAt | date:'MMM dd, y'}}</mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+
