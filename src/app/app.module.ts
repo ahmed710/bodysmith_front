@@ -11,6 +11,10 @@ import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
+import { ReclamationDetailsComponent } from './modules/admin/dashboards/reclamation-details/reclamation-details.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {NgApexchartsModule} from "ng-apexcharts";
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     scrollPositionRestoration: 'enabled'
@@ -20,7 +24,7 @@ const routerConfig: ExtraOptions = {
     declarations: [
         AppComponent,
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
@@ -34,7 +38,10 @@ const routerConfig: ExtraOptions = {
         CoreModule,
 
         // Layout module of your application
-        LayoutModule
+        LayoutModule,
+        MatButtonModule,
+        MatMenuModule,
+        NgApexchartsModule
     ],
     bootstrap   : [
         AppComponent

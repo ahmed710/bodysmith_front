@@ -119,6 +119,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:chart-pie',
                 link: '/dashboards/analytics',
+                id   : 'dashboards.reclamation',
+                title: 'Reclamation',
+                type : 'basic',
+                icon : 'heroicons_outline:cash',
+                link : '/dashboards/reclamation'
             },
             {
                 id: 'dashboards.crypto',

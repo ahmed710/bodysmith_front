@@ -3,7 +3,7 @@ import { ProjectResolver } from 'app/modules/admin/dashboards/project/project.re
 import {ReclamationComponent} from "./reclamation.component";
 import {ReclamationResolver} from "./reclamation.resolvers";
 
-export const projectRoutes: Route[] = [
+export const ReclamationRoutes: Route[] = [
     {
         path     : '',
         component: ReclamationComponent,
