@@ -15,6 +15,7 @@ import { ReclamationDetailsComponent } from './modules/admin/dashboards/reclamat
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {NgApexchartsModule} from "ng-apexcharts";
+import { AddReclamationComponent } from './modules/admin/dashboards/add-reclamation/add-reclamation.component';
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     scrollPositionRestoration: 'enabled'
