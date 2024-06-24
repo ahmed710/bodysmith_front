@@ -19,7 +19,7 @@ export class AuthService {
     isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
         false
     );
-
+    private _currentUser: any;
     /**
      * Constructor
      */
@@ -55,6 +55,9 @@ export class AuthService {
     }
     private getAccessToken(): string | null {
         return localStorage.getItem('accessToken');
+    }
+    get currentUser(): any {
+        return this._currentUser;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -105,6 +108,7 @@ export class AuthService {
                     // Store the access token in the local storage
                     this.accessToken = response.tokens.access.token;
                     this._authenticated = true;
+                    this._currentUser = response.user;
 
                     // Store the user on the user service
                     this._userService.user = response.user;
