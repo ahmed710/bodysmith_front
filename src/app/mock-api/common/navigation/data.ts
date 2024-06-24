@@ -132,8 +132,22 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:currency-dollar',
                 link: '/dashboards/crypto',
             },
-        ],
-    },
+            {
+
+                id   : 'dashboards.add-reclamation',
+                title: 'Add Reclamation',
+                type : 'basic',
+                icon : 'heroicons_outline:currency-dollar',
+                link : '/dashboards/add-reclamation'
+            },
+            {
+                id   : 'dashboards.crypto',
+                title: 'Crypto',
+                type : 'basic',
+                icon : 'heroicons_outline:currency-dollar',
+                link : '/dashboards/crypto'
+            },
+            
     {
         id: 'apps',
         title: 'Applications',
