@@ -11,6 +11,9 @@ export class UserService {
     getUserProfile(userId: string, role: string): Observable<any> {
         const baseUrl = 'http://127.0.0.1:9090';
         const url = `${baseUrl}/${role.toLowerCase()}/${userId}`;
+        console.log(userId);
+        console.log(role.toLowerCase());
+        
         return this.http.get(url);
     }
 }

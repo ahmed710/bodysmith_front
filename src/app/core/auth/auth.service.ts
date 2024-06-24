@@ -1,12 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import {
+    BehaviorSubject,
+    catchError,
+    Observable,
+    of,
+    switchMap,
+    throwError,
+} from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 
 @Injectable()
 export class AuthService {
     private _authenticated: boolean = false;
+    private _accessToken: string | null = null;
+    private _refreshToken: string | null = null; // Define _refreshToken
+    isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+        false
+    );
 
     /**
      * Constructor
@@ -14,7 +26,13 @@ export class AuthService {
     constructor(
         private _httpClient: HttpClient,
         private _userService: UserService
-    ) {}
+    ) {
+        this._accessToken = this.getAccessToken();
+        if (this._accessToken) {
+            this._authenticated = true;
+            this.isAuthenticated.next(true);
+        }
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
@@ -23,12 +41,20 @@ export class AuthService {
     /**
      * Setter & getter for access token
      */
-    set accessToken(token: string) {
-        localStorage.setItem('accessToken', token);
+    set accessToken(token: string | null) {
+        this._accessToken = token;
+        if (token) {
+            localStorage.setItem('accessToken', token);
+        } else {
+            localStorage.removeItem('accessToken');
+        }
     }
 
-    get accessToken(): string {
-        return localStorage.getItem('accessToken') ?? '';
+    get accessToken(): string | null {
+        return this._accessToken;
+    }
+    private getAccessToken(): string | null {
+        return localStorage.getItem('accessToken');
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -74,10 +100,10 @@ export class AuthService {
             .post('http://127.0.0.1:9090/auth/login/', credentials)
             .pipe(
                 switchMap((response: any) => {
-                    // Store the access token in the local storage
-                    this.accessToken = response.accessToken;
+                    console.log('Response from signIn:', response); // Check response structure
 
-                    // Set the authenticated flag to true
+                    // Store the access token in the local storage
+                    this.accessToken = response.tokens.access.token;
                     this._authenticated = true;
 
                     // Store the user on the user service
@@ -85,6 +111,10 @@ export class AuthService {
 
                     // Return a new observable with the response
                     return of(response);
+                }),
+                catchError((error) => {
+                    this.accessToken = null; // Clear token on error if necessary
+                    return throwError(error);
                 })
             );
     }
@@ -150,13 +180,9 @@ export class AuthService {
      * Sign out
      */
     signOut(): Observable<any> {
-        // Remove the access token from the local storage
-        localStorage.removeItem('accessToken');
-
-        // Set the authenticated flag to false
+        this.accessToken = null;
         this._authenticated = false;
-
-        // Return the observable
+        this.isAuthenticated.next(false);
         return of(true);
     }
 
@@ -365,19 +391,29 @@ export class AuthService {
         // If the access token exists and it didn't expire, sign in using it
         return this.signInUsingToken();
     }
-    storeTokens(tokens: any): void {
-        // Store tokens in local storage or state
-        this.accessToken = tokens.accessToken;
-        localStorage.setItem('accessToken', this.accessToken);
+    public storeTokens(tokens: {
+        access: { token: string; expires: number };
+        refresh: { token: string; expires: number };
+    }): void {
+        // Store access token
+        this.accessToken = tokens.access.token;
+
+        // Store refresh token
+        this._refreshToken = tokens.refresh.token;
+        localStorage.setItem('refreshToken', tokens.refresh.token);
+
+        // Update authenticated state
+        this.isAuthenticated.next(true);
+        this._authenticated = true;
     }
 
-    getAccessToken(): string {
-        // Retrieve access token from local storage or state
-        return localStorage.getItem('accessToken') || this.accessToken;
-    }
+    // getAccessToken(): string {
+    //     // Retrieve access token from local storage or state
+    //     return localStorage.getItem('accessToken') || this.accessToken;
+    // }
 
-    isAuthenticated(): boolean {
-        // Check if user is authenticated based on token presence
-        return !!this.getAccessToken();
-    }
+    // isAuthenticated(): boolean {
+    //     // Check if user is authenticated based on token presence
+    //     return !!this.getAccessToken();
+    // }
 }
