@@ -15,6 +15,9 @@ export class AddReclamationService
     constructor(private _httpClient: HttpClient)
     {
     }
+    addReclamation(body: any) {
+        return this._httpClient.post('http://127.0.0.1:9090/reclamation/', body);
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors

@@ -16,6 +16,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
 import {AddReclamationComponent} from "./add-reclamation.component";
 import {AddReclamationRoutes} from "./add-reclamation.routing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
     declarations: [
@@ -30,7 +32,11 @@ import {AddReclamationRoutes} from "./add-reclamation.routing";
         MatMenuModule,
         MatProgressBarModule,
         MatSortModule,
-        MatTableModule
+        MatTableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+
     ]
 })
 export class AddReclamationModule
