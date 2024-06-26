@@ -162,6 +162,27 @@ export const appRoutes: Route[] = [
                             ).then((m) => m.ProjectModule),
                     },
                     {
+                        path: 'users',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/users/users.module'
+                            ).then((m) => m.UsersModule),
+                    },
+                    {
+                        path: 'coaches',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/coaches/coaches.module'
+                            ).then((m) => m.CoachModule),
+                    },
+                    {
+                        path: 'nutritionnistes',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/nutritionnistes/nutri.module'
+                            ).then((m) => m.NutriModule),
+                    },
+                    {
                         path: 'analytics',
                         loadChildren: () =>
                             import(
@@ -390,6 +411,13 @@ export const appRoutes: Route[] = [
                         loadChildren: () =>
                             import(
                                 'app/modules/admin/pages/profile/profile.module'
+                            ).then((m) => m.ProfileModule),
+                    },
+                    {
+                        path: 'profile',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/pages/users/profile.module'
                             ).then((m) => m.ProfileModule),
                     },
 

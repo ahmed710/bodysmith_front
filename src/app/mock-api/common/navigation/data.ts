@@ -1,6 +1,40 @@
 /* eslint-disable */
 import { FuseNavigationItem } from '@fuse/components/navigation';
 
+const UserRole = {
+    ADMIN: 'ADMIN',
+    COACH: 'COACH',
+    NUTRITIONNISTE: 'NUTRITIONNISTE',
+    USER: 'USER',
+};
+
+// Sample current user role
+const currentUserRole = UserRole.ADMIN; // Change this based on the actual user role
+
+// Function to filter navigation items based on user role
+const filterNavigationItems = (
+    navigationItems: FuseNavigationItem[],
+    role: string
+): FuseNavigationItem[] => {
+    return navigationItems
+        .map((item) => {
+            if (item.children) {
+                item.children = filterNavigationItems(item.children, role);
+            }
+
+            if (
+                item.id === 'pages.coaches' ||
+                item.id === 'pages.nutritionniste' ||
+                item.id === 'pages.users'
+            ) {
+                return role === UserRole.ADMIN ? item : null;
+            }
+
+            return item;
+        })
+        .filter((item) => item !== null);
+};
+
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id: 'dashboards',
@@ -43,6 +77,27 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:user-circle',
                 link: '/pages/profile',
+            },
+            {
+                id: 'pages.coaches',
+                title: 'coaches',
+                type: 'basic',
+                icon: 'heroicons_outline:user-circle',
+                link: '/dashboards/coaches',
+            },
+            {
+                id: 'pages.nutritionniste',
+                title: 'nutritionnistes',
+                type: 'basic',
+                icon: 'heroicons_outline:user-circle',
+                link: '/dashboards/nutritionnistes',
+            },
+            {
+                id: 'pages.users',
+                title: 'users',
+                type: 'basic',
+                icon: 'heroicons_outline:user-circle',
+                link: '/dashboards/users',
             },
         ],
     },
@@ -1264,3 +1319,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         children: [], // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation
     },
 ];
+export const accessibleNavigation = filterNavigationItems(
+    defaultNavigation,
+    currentUserRole
+);
