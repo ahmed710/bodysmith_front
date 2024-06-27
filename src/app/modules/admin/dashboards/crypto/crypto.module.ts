@@ -13,14 +13,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
-import { CryptoComponent } from 'app/modules/admin/dashboards/crypto/crypto.component';
+import { CreateAdminComponent } from 'app/modules/admin/dashboards/crypto/crypto.component';
 import { cryptoRoutes } from 'app/modules/admin/dashboards/crypto/crypto.routing';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-    declarations: [
-        CryptoComponent
-    ],
-    imports     : [
+    declarations: [CreateAdminComponent],
+    imports: [
         RouterModule.forChild(cryptoRoutes),
         MatButtonModule,
         MatButtonToggleModule,
@@ -34,9 +34,12 @@ import { cryptoRoutes } from 'app/modules/admin/dashboards/crypto/crypto.routing
         MatTableModule,
         MatTabsModule,
         NgApexchartsModule,
-        SharedModule
-    ]
+        SharedModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatNativeDateModule,
+    ],
 })
-export class CryptoModule
-{
-}
+export class CryptoModule {}
