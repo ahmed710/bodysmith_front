@@ -8,10 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class CoachService {
     private apiUrl = 'http://127.0.0.1:9090/admin/coaches/';
+    private apiUrlDelete = 'http://127.0.0.1:9090/admin/';
 
     constructor(private http: HttpClient) {}
 
     getCoaches(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
+    }
+    removeCoach(coachId: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrlDelete}${coachId}`);
     }
 }

@@ -1,6 +1,7 @@
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     OnDestroy,
     OnInit,
@@ -11,10 +12,12 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { NutriService } from './users.service';
+import { NutriService } from './users.service'; // Adjust import to actual service
+import { ConfirmDialogComponent } from '../coaches/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-nutri',
+    selector: 'app-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
     encapsulation: ViewEncapsulation.None,
@@ -23,7 +26,7 @@ import { NutriService } from './users.service';
 export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(MatSort) coachTableMatSort: MatSort;
 
-    data: any;
+    data: any; // Initialize data
     coachDataSource: MatTableDataSource<any> = new MatTableDataSource();
     coachTableColumns: string[] = [
         'firstName',
@@ -34,21 +37,18 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         'role',
         'active',
         'isApproved',
-        'button',
+        'actions',
     ];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    constructor(private _coachService: NutriService) {}
+    constructor(
+        private _coachService: NutriService,
+        private _dialog: MatDialog,
+        private _cdr: ChangeDetectorRef // Inject ChangeDetectorRef for manual triggering
+    ) {}
 
     ngOnInit(): void {
-        this._coachService
-            .getNutris()
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((data) => {
-                this.data = data;
-                this.coachDataSource.data = data.data; // Update to data.data
-                console.log(data);
-            });
+        this.loadCoaches();
     }
 
     ngAfterViewInit(): void {
@@ -58,6 +58,41 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
+    }
+
+    loadCoaches(): void {
+        this._coachService
+            .getNutris()
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((data) => {
+                this.data = data;
+                this.coachDataSource.data = data.data; // Update to your actual data structure
+                this._cdr.markForCheck(); // Mark for check after updating data
+            });
+    }
+
+    removeCoach(coachId: string): void {
+        const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+            data: { message: 'Are you sure you want to remove this coach?' },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this._coachService
+                    .removeCoach(coachId)
+                    .pipe(takeUntil(this._unsubscribeAll))
+                    .subscribe(
+                        () => {
+                            // Update the view after removing a coach
+                            this.loadCoaches();
+                        },
+                        (error) => {
+                            console.error('Error removing coach:', error);
+                            // Optionally, show an error message to the user
+                        }
+                    );
+            }
+        });
     }
 
     trackByFn(index: number, item: any): any {

@@ -147,39 +147,27 @@
                         </td>
                     </ng-container>
 
-                    <!-- Button -->
-                    <ng-container matColumnDef="button">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                            View Details
-                        </th>
+                    <!-- Actions -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
                         <td mat-cell *matCellDef="let coach">
-                            <span
-                                class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase"
-                            >
-                                <span class="leading-relaxed whitespace-nowrap">
-                                    <button
-                                        class="text-blue-500"
-                                        [routerLink]="[
-                                            '/dashboards/coaches',
-                                            coach._id
-                                        ]"
-                                    >
-                                        View
-                                    </button>
-                                </span>
+                            <span class="inline-flex items-center">
+                                <button
+                                    class="text-blue-500 mr-2"
+                                    [routerLink]="[
+                                        '/dashboards/coaches',
+                                        coach._id
+                                    ]"
+                                >
+                                    View
+                                </button>
+                                <button
+                                    class="text-red-500"
+                                    (click)="removeCoach(coach._id)"
+                                >
+                                    Remove
+                                </button>
                             </span>
-                        </td>
-                    </ng-container>
-
-                    <!-- Footer -->
-                    <ng-container matColumnDef="coachTableFooter">
-                        <td
-                            class="py-6 px-0 border-0"
-                            mat-footer-cell
-                            *matFooterCellDef
-                            colspan="9"
-                        >
-                            <button mat-stroked-button>View All Coaches</button>
                         </td>
                     </ng-container>
 
@@ -191,11 +179,6 @@
                         class="order-row h-16"
                         mat-row
                         *matRowDef="let row; columns: coachTableColumns"
-                    ></tr>
-                    <tr
-                        class="h-16 border-0"
-                        mat-footer-row
-                        *matFooterRowDef="['coachTableFooter']"
                     ></tr>
                 </table>
             </div>

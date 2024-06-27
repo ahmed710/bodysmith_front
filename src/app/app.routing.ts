@@ -163,24 +163,81 @@ export const appRoutes: Route[] = [
                     },
                     {
                         path: 'users',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/dashboards/users/users.module'
-                            ).then((m) => m.UsersModule),
+                        children: [
+                            {
+                                path: '',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/users/users.module'
+                                    ).then((m) => m.UsersModule),
+                            },
+                            {
+                                path: ':id',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/userDetails/user-details-routing.module'
+                                    ).then((m) => m.CoachDetailsModule),
+                            },
+                        ],
                     },
+                    // {
+                    //     path: 'users',
+                    //     loadChildren: () =>
+                    //         import(
+                    //             'app/modules/admin/dashboards/users/users.module'
+                    //         ).then((m) => m.UsersModule),
+                    // },
                     {
                         path: 'coaches',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/dashboards/coaches/coaches.module'
-                            ).then((m) => m.CoachModule),
+                        children: [
+                            {
+                                path: '',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/coaches/coaches.module'
+                                    ).then((m) => m.CoachModule),
+                            },
+                            {
+                                path: ':id',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/coachDetails/coach-details-routing.module'
+                                    ).then((m) => m.CoachDetailsModule),
+                            },
+                        ],
                     },
+                    // {
+                    //     path: 'coaches',
+                    //     loadChildren: () =>
+                    //         import(
+                    //             'app/modules/admin/dashboards/coaches/coaches.module'
+                    //         ).then((m) => m.CoachModule),
+                    // },
+                    // {
+                    //     path: 'nutritionnistes',
+                    //     loadChildren: () =>
+                    //         import(
+                    //             'app/modules/admin/dashboards/nutritionnistes/nutri.module'
+                    //         ).then((m) => m.NutriModule),
+                    // },
                     {
                         path: 'nutritionnistes',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/dashboards/nutritionnistes/nutri.module'
-                            ).then((m) => m.NutriModule),
+                        children: [
+                            {
+                                path: '',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/nutritionnistes/nutri.module'
+                                    ).then((m) => m.NutriModule),
+                            },
+                            {
+                                path: ':id',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/nutriDetails/nutri-details-routing.module'
+                                    ).then((m) => m.CoachDetailsModule),
+                            },
+                        ],
                     },
                     {
                         path: 'analytics',

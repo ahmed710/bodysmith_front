@@ -1,29 +1,28 @@
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
     Component,
-    OnDestroy,
     OnInit,
+    AfterViewInit,
+    OnDestroy,
     ViewChild,
-    ViewEncapsulation,
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CoachService } from './coaches.service';
+import { ConfirmDialogComponent } from './confirm-dialog.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'app-coach',
     templateUrl: './coaches.component.html',
     styleUrls: ['./coaches.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoachComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('coachTable', { read: MatSort }) coachTableMatSort: MatSort;
 
-    data: any;
+    data: any = { coaches: [], results: 0 }; // Initialize data
     coachDataSource: MatTableDataSource<any> = new MatTableDataSource();
     coachTableColumns: string[] = [
         'firstName',
@@ -34,20 +33,18 @@ export class CoachComponent implements OnInit, AfterViewInit, OnDestroy {
         'role',
         'active',
         'isApproved',
-        'button',
+        'actions',
     ];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    constructor(private _coachService: CoachService) {}
+    constructor(
+        private _coachService: CoachService,
+        private _dialog: MatDialog,
+        private _cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+    ) {}
 
     ngOnInit(): void {
-        this._coachService
-            .getCoaches()
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((data) => {
-                this.data = data;
-                this.coachDataSource.data = data.coaches;
-            });
+        this.loadCoaches();
     }
 
     ngAfterViewInit(): void {
@@ -57,6 +54,40 @@ export class CoachComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
+    }
+
+    loadCoaches(): void {
+        this._coachService
+            .getCoaches()
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((data) => {
+                this.data = data;
+                this.coachDataSource.data = data.coaches;
+            });
+    }
+
+    removeCoach(coachId: string): void {
+        const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+            data: { message: 'Are you sure you want to remove this coach?' },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this._coachService
+                    .removeCoach(coachId)
+                    .pipe(takeUntil(this._unsubscribeAll))
+                    .subscribe(
+                        () => {
+                            // Reload the coaches data after removing a coach
+                            this.loadCoaches();
+                        },
+                        (error) => {
+                            console.error('Error removing coach:', error);
+                            // Optionally, show an error message to the user
+                        }
+                    );
+            }
+        });
     }
 
     trackByFn(index: number, item: any): any {

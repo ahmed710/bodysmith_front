@@ -1,4 +1,3 @@
-<!-- coach.component.html -->
 <div class="flex flex-col flex-auto w-full">
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-8">
         <!-- Recent transactions table -->
@@ -9,7 +8,7 @@
                 <div
                     class="mr-4 text-lg font-medium tracking-tight leading-6 truncate"
                 >
-                    List of Nutritionnist
+                    List of Nutritionists
                 </div>
                 <div class="text-secondary font-medium">
                     Total: {{ data?.results }}
@@ -29,11 +28,11 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             First Name
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span
                                 class="pr-6 font-medium text-sm text-secondary whitespace-nowrap"
                             >
-                                {{ coach.firstName || "---" }}
+                                {{ nutritionist.firstName || "---" }}
                             </span>
                         </td>
                     </ng-container>
@@ -43,11 +42,11 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             Last Name
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span
                                 class="pr-6 font-medium text-sm text-secondary whitespace-nowrap"
                             >
-                                {{ coach.lastName || "---" }}
+                                {{ nutritionist.lastName || "---" }}
                             </span>
                         </td>
                     </ng-container>
@@ -57,9 +56,9 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             Email
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span class="pr-6 whitespace-nowrap">
-                                {{ coach.email || "---" }}
+                                {{ nutritionist.email || "---" }}
                             </span>
                         </td>
                     </ng-container>
@@ -69,9 +68,9 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             Phone Number
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span class="pr-6 font-medium whitespace-nowrap">
-                                {{ coach.phoneNumber || "---" }}
+                                {{ nutritionist.phoneNumber || "---" }}
                             </span>
                         </td>
                     </ng-container>
@@ -81,9 +80,9 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             Birth Date
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span class="pr-6 whitespace-nowrap">
-                                {{ coach.birthDate | date : "MMM dd, y" }}
+                                {{ nutritionist.birthDate | date : "MMM dd, y" }}
                             </span>
                         </td>
                     </ng-container>
@@ -93,9 +92,9 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             Role
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span class="pr-6 font-medium whitespace-nowrap">
-                                {{ coach.role || "---" }}
+                                {{ nutritionist.role || "---" }}
                             </span>
                         </td>
                     </ng-container>
@@ -105,20 +104,22 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             Active
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span
                                 class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase"
                                 [ngClass]="{
                                     'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-50':
-                                        coach.active,
+                                        nutritionist.active,
                                     'bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-50':
-                                        !coach.active
+                                        !nutritionist.active
                                 }"
                             >
                                 <span
                                     class="leading-relaxed whitespace-nowrap"
                                     >{{
-                                        coach.active ? "Active" : "Inactive"
+                                        nutritionist.active
+                                            ? "Active"
+                                            : "Inactive"
                                     }}</span
                                 >
                             </span>
@@ -130,20 +131,20 @@
                         <th mat-header-cell mat-sort-header *matHeaderCellDef>
                             Is Approved
                         </th>
-                        <td mat-cell *matCellDef="let coach">
+                        <td mat-cell *matCellDef="let nutritionist">
                             <span
                                 class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase"
                                 [ngClass]="{
                                     'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-50':
-                                        coach.isApproved,
+                                        nutritionist.isApproved,
                                     'bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-50':
-                                        !coach.isApproved
+                                        !nutritionist.isApproved
                                 }"
                             >
                                 <span
                                     class="leading-relaxed whitespace-nowrap"
                                     >{{
-                                        coach.isApproved
+                                        nutritionist.isApproved
                                             ? "Approved"
                                             : "Not Approved"
                                     }}</span
@@ -152,38 +153,41 @@
                         </td>
                     </ng-container>
 
-                    <!-- Button -->
-                    <ng-container matColumnDef="button">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
-                            View Details
-                        </th>
-                        <td mat-cell *matCellDef="let coach">
-                            <span
-                                class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase"
-                            >
-                                <span class="leading-relaxed whitespace-nowrap">
-                                    <button
-                                        [routerLink]="[
-                                            '/dashboards/coach/',
-                                            coach._id
-                                        ]"
-                                    >
-                                        View
-                                    </button>
-                                </span>
+                    <!-- Actions -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let nutritionist">
+                            <span class="inline-flex items-center">
+                                <button
+                                    class="text-blue-500 mr-2"
+                                    [routerLink]="[
+                                        '/dashboards/nutritionists',
+                                        nutritionist._id
+                                    ]"
+                                >
+                                    View
+                                </button>
+                                <button
+                                    class="text-red-500"
+                                    (click)="removeNutritionist(nutritionist._id)"
+                                >
+                                    Remove
+                                </button>
                             </span>
                         </td>
                     </ng-container>
 
                     <!-- Footer -->
-                    <ng-container matColumnDef="coachTableFooter">
+                    <ng-container matColumnDef="nutriTableFooter">
                         <td
                             class="py-6 px-0 border-0"
                             mat-footer-cell
                             *matFooterCellDef
                             colspan="9"
                         >
-                            <button mat-stroked-button>View All Nutritionnist</button>
+                            <button mat-stroked-button>
+                                View All Nutritionists
+                            </button>
                         </td>
                     </ng-container>
 
@@ -199,7 +203,7 @@
                     <tr
                         class="h-16 border-0"
                         mat-footer-row
-                        *matFooterRowDef="['coachTableFooter']"
+                        *matFooterRowDef="['nutriTableFooter']"
                     ></tr>
                 </table>
             </div>
