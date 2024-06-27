@@ -94,7 +94,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
             },
             {
                 id: 'pages.nutritionniste',
-                title: 'Ntritionnists',
+                title: 'Nutritionnists',
                 type: 'basic',
                 icon: 'heroicons_outline:user-circle',
                 link: '/dashboards/nutritionnistes',
