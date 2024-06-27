@@ -75,7 +75,7 @@ export const appRoutes: Route[] = [
             {path: 'dashboards', children: [
                 {path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.module').then(m => m.ProjectModule)},
                 {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule)},
-                    {path: 'coaches', loadChildren: () => import('app/modules/admin/dashboards/coach/coaches.module').then(m => m.CoachesModule)},
+                    {path: 'coaches', loadChildren: () => import('app/modules/admin/dashboards/coaches/coaches.module').then(m => m.CoachesModule)},
                 // {path: 'finance', loadChildren: () => import('app/modules/admin/dashboards/finance/finance.module').then(m => m.FinanceModule)},
                     {path: 'crypto', loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.module').then(m => m.CryptoModule)},
             ]},

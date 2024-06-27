@@ -1,0 +1,250 @@
+<!-- <!-- <form [formGroup]="seanceForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="TypeEvent">Type d'événement:</label>
+    <select id="TypeEvent" formControlName="TypeEvent">
+      <option *ngFor="let type of typeEvents" [value]="type">{{ type }}</option>
+    </select>
+    <div *ngIf="seanceForm.get('TypeEvent')?.invalid && seanceForm.get('TypeEvent')?.touched">
+      Type d'événement est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="IdSalleDeSport">ID de la salle de sport:</label>
+    <input id="IdSalleDeSport" type="number" formControlName="IdSalleDeSport">
+    <div *ngIf="seanceForm.get('IdSalleDeSport')?.invalid && seanceForm.get('IdSalleDeSport')?.touched">
+      ID de la salle de sport est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="DateEvent">Date de l'événement:</label>
+    <input id="DateEvent" type="date" formControlName="DateEvent">
+    <div *ngIf="seanceForm.get('DateEvent')?.invalid && seanceForm.get('DateEvent')?.touched">
+      Date de l'événement est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="NbrParticipant">Nombre de participants:</label>
+    <input id="NbrParticipant" type="number" formControlName="NbrParticipant">
+    <div *ngIf="seanceForm.get('NbrParticipant')?.invalid && seanceForm.get('NbrParticipant')?.touched">
+      Nombre de participants est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="Capacity">Capacité:</label>
+    <input id="Capacity" type="number" formControlName="Capacity">
+    <div *ngIf="seanceForm.get('Capacity')?.invalid && seanceForm.get('Capacity')?.touched">
+      Capacité est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="HeureDebutEvent">Heure de début:</label>
+    <input id="HeureDebutEvent" type="datetime-local" formControlName="HeureDebutEvent">
+    <div *ngIf="seanceForm.get('HeureDebutEvent')?.invalid && seanceForm.get('HeureDebutEvent')?.touched">
+      Heure de début est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="Durée">Durée (minutes):</label>
+    <input id="Durée" type="number" formControlName="Durée">
+    <div *ngIf="seanceForm.get('Durée')?.invalid && seanceForm.get('Durée')?.touched">
+      Durée est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="HeureFinEvent">Heure de fin:</label>
+    <input id="HeureFinEvent" type="datetime-local" formControlName="HeureFinEvent">
+  </div>
+
+  <div>
+    <label for="coach">Coach:</label>
+    <input id="coach" type="text" formControlName="coach">
+  </div>
+
+  <button type="submit" [disabled]="seanceForm.invalid">Soumettre</button>
+</form> -->
+<!-- 
+<form [formGroup]="seanceForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="TypeEvent">Type d'événement:</label>
+    <select id="TypeEvent" formControlName="TypeEvent">
+      <option *ngFor="let type of typeEvents" [value]="[type]">{{ type }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="IdSalleDeSport">ID de la salle de sport:</label>
+    <input id="IdSalleDeSport" type="number" formControlName="IdSalleDeSport">
+  </div>
+
+  <div>
+    <label for="DateEvent">Date de l'événement:</label>
+    <input id="DateEvent" type="datetime-local" formControlName="DateEvent">
+  </div>
+
+  <div>
+    <label for="NbrParticipant">Nombre de participants:</label>
+    <input id="NbrParticipant" type="number" formControlName="NbrParticipant">
+  </div>
+
+  <div>
+    <label for="Capacity">Capacité:</label>
+    <input id="Capacity" type="number" formControlName="Capacity">
+  </div>
+
+  <div>
+    <label for="HeureDebutEvent">Heure de début:</label>
+    <input id="HeureDebutEvent" type="datetime-local" formControlName="HeureDebutEvent">
+  </div>
+
+  <div>
+    <label for="Durée">Durée (heures):</label>
+    <input id="Durée" type="number" formControlName="Durée">
+  </div>
+
+  <div>
+    <label for="HeureFinEvent">Heure de fin:</label>
+    <input id="HeureFinEvent" type="datetime-local" formControlName="HeureFinEvent">
+  </div>
+
+  <div>
+    <label for="coachId">Coach ID:</label>
+    <input id="coachId" type="text" formControlName="coachId">
+  </div>
+
+  <button type="submit" [disabled]="seanceForm.invalid">Soumettre</button>
+</form> -->
+
+<!-- <form [formGroup]="seanceForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="TypeEvent">Type d'événement:</label>
+    <select id="TypeEvent" formControlName="TypeEvent">
+      <option *ngFor="let type of typeEvents" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="IdSalleDeSport">ID de la salle de sport:</label>
+    <input id="IdSalleDeSport" type="number" formControlName="IdSalleDeSport">
+  </div>
+
+  <div>
+    <label for="DateEvent">Date de l'événement:</label>
+    <input id="DateEvent" type="datetime-local" formControlName="DateEvent">
+  </div>
+
+  <div>
+    <label for="NbrParticipant">Nombre de participants:</label>
+    <input id="NbrParticipant" type="number" formControlName="NbrParticipant">
+  </div>
+
+  <div>
+    <label for="Capacity">Capacité:</label>
+    <input id="Capacity" type="number" formControlName="Capacity">
+  </div>
+
+  <div>
+    <label for="HeureDebutEvent">Heure de début:</label>
+    <input id="HeureDebutEvent" type="datetime-local" formControlName="HeureDebutEvent">
+  </div>
+
+  <div>
+    <label for="Durée">Durée (heures):</label>
+    <input id="Durée" type="number" formControlName="Durée">
+  </div>
+
+  <div>
+    <label for="HeureFinEvent">Heure de fin:</label>
+    <input id="HeureFinEvent" type="datetime-local" formControlName="HeureFinEvent">
+  </div>
+
+  <div>
+    <label for="coachId">Coach ID:</label>
+    <input id="coachId" type="text" formControlName="coachId">
+  </div>
+
+  <button type="submit">Soumettre</button>
+</form>
+ -->
+
+ <form [formGroup]="seanceForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="TypeEvent">Type d'événement:</label>
+    <select id="TypeEvent" formControlName="TypeEvent">
+      <option *ngFor="let type of typeEvents" [value]="type">{{ type }}</option>
+    </select>
+    <div *ngIf="seanceForm.get('TypeEvent')?.invalid && seanceForm.get('TypeEvent')?.touched">
+      Type d'événement est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="IdSalleDeSport">ID de la salle de sport:</label>
+    <input id="IdSalleDeSport" type="number" formControlName="IdSalleDeSport">
+    <div *ngIf="seanceForm.get('IdSalleDeSport')?.invalid && seanceForm.get('IdSalleDeSport')?.touched">
+      ID de la salle de sport est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="DateEvent">Date de l'événement:</label>
+    <input id="DateEvent" type="datetime-local" formControlName="DateEvent">
+    <div *ngIf="seanceForm.get('DateEvent')?.invalid && seanceForm.get('DateEvent')?.touched">
+      Date de l'événement est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="NbrParticipant">Nombre de participants:</label>
+    <input id="NbrParticipant" type="number" formControlName="NbrParticipant">
+    <div *ngIf="seanceForm.get('NbrParticipant')?.invalid && seanceForm.get('NbrParticipant')?.touched">
+      Nombre de participants est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="Capacity">Capacité:</label>
+    <input id="Capacity" type="number" formControlName="Capacity">
+    <div *ngIf="seanceForm.get('Capacity')?.invalid && seanceForm.get('Capacity')?.touched">
+      Capacité est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="HeureDebutEvent">Heure de début:</label>
+    <input id="HeureDebutEvent" type="datetime-local" formControlName="HeureDebutEvent">
+    <div *ngIf="seanceForm.get('HeureDebutEvent')?.invalid && seanceForm.get('HeureDebutEvent')?.touched">
+      Heure de début est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="Durée">Durée (heures):</label>
+    <input id="Durée" type="number" formControlName="Durée">
+    <div *ngIf="seanceForm.get('Durée')?.invalid && seanceForm.get('Durée')?.touched">
+      Durée est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="HeureFinEvent">Heure de fin:</label>
+    <input id="HeureFinEvent" type="datetime-local" formControlName="HeureFinEvent">
+  </div>
+
+  <div>
+    <label for="coachId">Coach ID:</label>
+    <input id="coachId" type="text" formControlName="coachId">
+    <div *ngIf="seanceForm.get('coachId')?.invalid && seanceForm.get('coachId')?.touched">
+      Coach ID est requis.
+    </div>
+  </div>
+
+  <button type="submit">Soumettre</button>
+</form>
+

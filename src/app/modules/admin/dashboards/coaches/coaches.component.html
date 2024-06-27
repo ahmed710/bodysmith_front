@@ -1,0 +1,15 @@
+<!-- coaches.component.html -->
+   <h2>Coaches List</h2>
+<div *ngIf="coaches.length > 0">
+    <ul>
+    <li *ngFor="let coach of coaches">
+      <p>{{ coach.firstName }} {{ coach.lastName }}</p>
+      <p>{{ coach.email }}</p>
+      <!-- Display other coach details as needed -->
+      <button (click)="editCoach(coach)">Edit</button>
+    </li>
+  </ul>
+</div>
+<div *ngIf="coaches.length === 0">
+  <p>No coaches found.</p>
+</div>
