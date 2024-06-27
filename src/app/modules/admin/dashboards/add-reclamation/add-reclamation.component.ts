@@ -17,12 +17,10 @@ export class AddReclamationComponent {
             Validators.required,
             Validators.pattern('[0-9]+'),
         ]),
-        pieceJointe: new FormControl('' ),
-        typeReclamation: new FormControl(0 ),
-        userReclamation: new FormControl(0),
     });
 
     add() {
+        console.log(this.reclamation.value);
         this.consumer.addReclamation(this.reclamation.value).subscribe({
             next: ()=> alert('Added successfuly')
         })
