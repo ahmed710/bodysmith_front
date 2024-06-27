@@ -104,17 +104,30 @@ export class AuthService {
             .pipe(
                 switchMap((response: any) => {
                     console.log('Response from signIn:', response); // Check response structure
-
+                    console.log('ROOOOOOOLE', response.user.role);
+                    console.log('state', response.user.active);
                     // Store the access token in the local storage
-                    this.accessToken = response.tokens.access.token;
-                    this._authenticated = true;
-                    this._currentUser = response.user;
+                    if (
+                        (response.user.role === 'ADMIN' ||
+                            response.user.role === 'COACH') &&
+                        response.user.active
+                    ) {
+                        // Store the access token in the local storage
+                        this.accessToken = response.tokens.access.token;
+                        this._authenticated = true;
+                        this._currentUser = response.user;
 
-                    // Store the user on the user service
-                    this._userService.user = response.user;
+                        // Store the user on the user service
+                        this._userService.user = response.user;
 
-                    // Return a new observable with the response
-                    return of(response);
+                        // Return a new observable with the response
+                        return of(response);
+                    } else {
+                        // If the user doesn't have the correct role or is not active, throw an error
+                        return throwError(
+                            'Access denied. Invalid role or inactive account.'
+                        );
+                    }
                 }),
                 catchError((error) => {
                     this.accessToken = null; // Clear token on error if necessary

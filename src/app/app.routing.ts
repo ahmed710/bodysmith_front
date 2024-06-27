@@ -248,10 +248,22 @@ export const appRoutes: Route[] = [
                     },
                     {
                         path: 'finance',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/dashboards/finance/finance.module'
-                            ).then((m) => m.FinanceModule),
+                        children: [
+                            {
+                                path: '',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/admin/coaches.module'
+                                    ).then((m) => m.CoachModule),
+                            },
+                            {
+                                path: ':id',
+                                loadChildren: () =>
+                                    import(
+                                        'app/modules/admin/dashboards/adminDetails/coach-details-routing.module'
+                                    ).then((m) => m.CoachDetailsModule),
+                            },
+                        ],
                     },
                     {
                         path: 'crypto',

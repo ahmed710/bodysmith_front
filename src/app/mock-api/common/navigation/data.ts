@@ -59,14 +59,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
             },
             {
                 id: 'dashboards.finance',
-                title: 'Finance',
+                title: 'Admins',
                 type: 'basic',
                 icon: 'heroicons_outline:cash',
                 link: '/dashboards/finance',
             },
             {
                 id: 'dashboards.crypto',
-                title: 'Crypto',
+                title: 'Create Admin',
                 type: 'basic',
                 icon: 'heroicons_outline:currency-dollar',
                 link: '/dashboards/crypto',
