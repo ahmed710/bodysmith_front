@@ -28,7 +28,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Coaches',
                 type : 'basic',
                 icon : 'heroicons_outline:cash',
-                link : '/dashboards/coaches'
+                    link : '/dashboards/coaches'
             },
             {
                 id   : 'dashboards.crypto',
@@ -36,7 +36,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon : 'heroicons_outline:currency-dollar',
                 link : '/dashboards/crypto'
+            },
+            {
+                id   : 'dashboards.session',
+                title: 'List Des Session',
+                type : 'basic',
+                icon : 'heroicons_outline:currency-dollar',
+                link : '/dashboards/session'
             }
+
         ]
     },
     {

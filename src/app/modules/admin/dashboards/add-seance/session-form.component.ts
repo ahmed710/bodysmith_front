@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionsService } from '../sessions/sessions.service';
 
 @Component({
   selector: 'app-add-seance-form',
   templateUrl: './session-form.component.html',
+    encapsulation  : ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddSeanceFormComponent implements OnInit {
   seanceForm!: FormGroup;

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { SessionsService } from './sessions.service';
 @Component({
   selector: 'app-sessions',
   templateUrl: './sessions.component.html',
-  styleUrls: ['./sessions.component.css']
+  styleUrls: ['./sessions.component.css'],
+    encapsulation  : ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SessionsComponent implements OnInit {
   sessions: any[] = [];
@@ -39,7 +41,7 @@ export class SessionsComponent implements OnInit {
 
   editSessions(Sessions: any): void {
     console.log('Editing Sessions', Sessions);
-    // Implement your edit logic here 
+    // Implement your edit logic here
   }
 
 

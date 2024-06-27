@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CoachesRoutingModule } from './coaches-routing.module';
+import {coachesRoutes} from './coaches-routing.routing';
 import { CoachesComponent } from './coaches.component';
 import { MatTableModule } from '@angular/material/table';
-import { MaterialModule } from '../../shared/material.module'; 
+import {RouterModule} from "@angular/router";
+import {analyticsRoutes} from "../analytics/analytics.routing";
 
 @NgModule({
-  
+
   declarations: [
     CoachesComponent
   ],
   imports: [
+      RouterModule.forChild(coachesRoutes),
     CommonModule,
-    CoachesRoutingModule,
     MatTableModule,
-    MaterialModule
   ]
 })
 export class CoachesModule { }
