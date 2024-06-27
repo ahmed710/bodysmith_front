@@ -160,17 +160,31 @@
                                 <button
                                     class="text-blue-500 mr-2"
                                     [routerLink]="[
-                                        '/dashboards/coaches',
+                                        '/dashboards/users',
                                         coach._id
                                     ]"
                                 >
                                     View
                                 </button>
                                 <button
-                                    class="text-red-500"
+                                    class="text-red-500 mr-2"
                                     (click)="removeCoach(coach._id)"
                                 >
                                     Remove
+                                </button>
+                                <button
+                                    (click)="toggleAccountStatus(coach)"
+                                    [ngClass]="
+                                        coach.active
+                                            ? 'desactive-button'
+                                            : 'reactive-button'
+                                    "
+                                >
+                                    <mat-icon>{{
+                                        coach.active
+                                            ? "desactivate"
+                                            : "reactivate"
+                                    }}</mat-icon>
                                 </button>
                             </span>
                         </td>

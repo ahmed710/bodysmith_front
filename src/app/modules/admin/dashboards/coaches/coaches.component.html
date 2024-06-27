@@ -167,6 +167,18 @@
                                 >
                                     Remove
                                 </button>
+                                <button
+                                    (click)="toggleAccountStatus(coach)"
+                                    [ngClass]="
+                                        coach.active
+                                            ? 'desactive-button'
+                                            : 'reactive-button'
+                                    "
+                                >
+                                    <mat-icon>{{
+                                        coach.active ? "desactivate" : "reactivate"
+                                    }}</mat-icon>
+                                </button>
                             </span>
                         </td>
                     </ng-container>

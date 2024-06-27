@@ -1,3 +1,4 @@
+// coach.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -5,13 +6,13 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class NutriService {
-    private apiUrl = 'http://127.0.0.1:9090/admin/users/';
+export class CoachService {
+    private apiUrl = 'http://127.0.0.1:9090/admin/admins/';
     private apiUrlDelete = 'http://127.0.0.1:9090/admin/';
 
     constructor(private http: HttpClient) {}
 
-    getNutris(): Observable<any> {
+    getCoaches(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
     }
     removeCoach(coachId: string): Observable<any> {

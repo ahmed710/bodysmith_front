@@ -98,4 +98,31 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     trackByFn(index: number, item: any): any {
         return item._id || index;
     }
+    toggleAccountStatus(coach: any): void {
+        const action = coach.active ? 'deactivate' : 'reactivate';
+        const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+            data: {
+                message: `Are you sure you want to ${action} this coach's account?`,
+            },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                const method = coach.active
+                    ? this._coachService.deactivateCoach(coach._id)
+                    : this._coachService.reactivateCoach(coach._id);
+
+                method.pipe(takeUntil(this._unsubscribeAll)).subscribe(
+                    (response) => {
+                        console.log(response.response);
+                        this.loadCoaches(); // Reload the coaches data
+                    },
+                    (error) => {
+                        console.error(`Error ${action}ing coach:`, error);
+                        // Optionally, show an error message to the user
+                    }
+                );
+            }
+        });
+    }
 }

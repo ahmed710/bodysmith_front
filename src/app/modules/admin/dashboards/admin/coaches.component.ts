@@ -60,12 +60,16 @@ export class CoachComponent implements OnInit, AfterViewInit, OnDestroy {
         this._coachService
             .getCoaches()
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((data) => {
-                this.data = data;
-                this.coachDataSource.data = data.coaches;
+            .subscribe((response) => {
+                this.data = {
+                    coaches: response.data,
+                    results: response.results,
+                };
+                this.coachDataSource.data = response.data;
+                console.log('Loaded coaches:', this.data);
+                this._cdr.detectChanges(); // Force change detection
             });
     }
-
     removeCoach(coachId: string): void {
         const dialogRef = this._dialog.open(ConfirmDialogComponent, {
             data: { message: 'Are you sure you want to remove this coach?' },
