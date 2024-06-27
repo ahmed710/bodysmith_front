@@ -243,8 +243,8 @@ export const appRoutes: Route[] = [
                         path: 'analytics',
                         loadChildren: () =>
                             import(
-                                'app/modules/admin/dashboards/analytics/analytics.module'
-                            ).then((m) => m.AnalyticsModule),
+                                'app/modules/admin/dashboards/changePassword/change-password.module'
+                            ).then((m) => m.ChangePasswordModule),
                     },
                     {
                         path: 'finance',

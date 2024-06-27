@@ -10,6 +10,7 @@ import {
 } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
+import { Route, Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,8 @@ export class AuthService {
      */
     constructor(
         private _httpClient: HttpClient,
-        private _userService: UserService
+        private _userService: UserService,
+        private _router: Router
     ) {
         this._accessToken = this.getAccessToken();
         if (this._accessToken) {
@@ -112,16 +114,22 @@ export class AuthService {
                             response.user.role === 'COACH') &&
                         response.user.active
                     ) {
-                        // Store the access token in the local storage
-                        this.accessToken = response.tokens.access.token;
-                        this._authenticated = true;
-                        this._currentUser = response.user;
+                        if (response.user.isApproved === false) {
+                            // Redirect to confirmation-required page
+                            this._router.navigate(['/confirmation-required']);
+                            return throwError('Account not approved');
+                        } else {
+                            // Store the access token in the local storage
+                            this.accessToken = response.tokens.access.token;
+                            this._authenticated = true;
+                            this._currentUser = response.user;
 
-                        // Store the user on the user service
-                        this._userService.user = response.user;
+                            // Store the user on the user service
+                            this._userService.user = response.user;
 
-                        // Return a new observable with the response
-                        return of(response);
+                            // Return a new observable with the response
+                            return of(response);
+                        }
                     } else {
                         // If the user doesn't have the correct role or is not active, throw an error
                         return throwError(
