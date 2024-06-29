@@ -141,8 +141,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:currency-dollar',
                 link: '/dashboards/categories'
-            }
-
+            },
+            {
+                id: 'dashboards.admin-restaurant',
+                title: 'Restaurant',
+                type: 'basic',
+                icon: 'heroicons_outline:cash',
+                link: '/dashboards/admin-restaurant',
+            },
         ]
     },
     {

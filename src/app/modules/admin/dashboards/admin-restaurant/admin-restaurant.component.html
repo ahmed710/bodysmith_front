@@ -1,0 +1,140 @@
+<div>
+    <h2>Restaurant Management</h2>
+
+    <form [formGroup]="restaurantForm" (ngSubmit)="createOrUpdateRestaurant()">
+        <div>
+            <label for="nomRestaurant">Restaurant Name</label>
+            <input id="nomRestaurant" formControlName="nomRestaurant" />
+            <div
+                *ngIf="
+                    restaurantForm.get('nomRestaurant').invalid &&
+                    (restaurantForm.get('nomRestaurant').touched ||
+                        restaurantForm.get('nomRestaurant').dirty)
+                "
+            >
+                <small
+                    *ngIf="restaurantForm.get('nomRestaurant').errors?.['required']"
+                    >Restaurant Name is required</small
+                >
+                <small
+                    *ngIf="restaurantForm.get('nomRestaurant').errors?.['maxlength']"
+                    >Restaurant Name cannot exceed 30 characters</small
+                >
+            </div>
+        </div>
+
+        <div>
+            <label for="adresseRestaurant">Restaurant Address</label>
+            <input
+                type="hidden"
+                id="adresseRestaurant"
+                formControlName="adresseRestaurant"
+            />
+            <geoapify-geocoder-autocomplete
+                (placeSelect)="placeSelected($event)"
+                [value]="restaurantForm.get('adresseRestaurant')?.value"
+            ></geoapify-geocoder-autocomplete>
+            <div
+                *ngIf="
+                    restaurantForm.get('adresseRestaurant').invalid &&
+                    (restaurantForm.get('adresseRestaurant').touched ||
+                        restaurantForm.get('adresseRestaurant').dirty)
+                "
+            >
+                <small
+                    *ngIf="restaurantForm.get('adresseRestaurant').errors?.['required']"
+                    >Restaurant Address is required</small
+                >
+            </div>
+        </div>
+
+        <div>
+            <label for="imageRestaurant">Restaurant Image</label>
+            <input
+                type="file"
+                id="imageRestaurant"
+                (change)="onFileSelected($event)"
+            />
+        </div>
+
+        <div>
+            <label for="categorieRestaurant">Categorie Restaurant</label>
+            <select
+                id="categorieRestaurant"
+                formControlName="categorieRestaurant"
+                multiple
+            >
+                <option
+                    *ngFor="let category of categorieRestaurants"
+                    [value]="category._id"
+                >
+                    {{ category.libelle }}
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="plats">Plats</label>
+            <select id="plats" formControlName="plats" multiple>
+                <option *ngFor="let plat of plats" [value]="plat._id">
+                    {{ plat.nomPlat }}
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" [disabled]="restaurantForm.invalid">
+            {{ isEditing ? "Update" : "Create" }}
+        </button>
+        <button type="button" *ngIf="isEditing" (click)="cancelEdit()">
+            Cancel
+        </button>
+    </form>
+
+    <div>
+        <input
+            type="text"
+            #searchString
+            (input)="searchRestaurants(searchString.value)"
+            placeholder="Search by address"
+        />
+        <button type="button" (click)="clearSearch(searchString)">
+            Clear Search
+        </button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Categories</th>
+                <th>Plats</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let restaurant of restaurants">
+                <td>{{ restaurant.nomRestaurant }}</td>
+                <td>{{ restaurant.adresseRestaurant }}</td>
+                <td>
+                    <span
+                        *ngFor="let category of restaurant.categorieRestaurant"
+                    >
+                        {{ category.libelle }},
+                    </span>
+                </td>
+                <td>
+                    <span *ngFor="let plat of restaurant.plats">
+                        {{ plat.nomPlat }},
+                    </span>
+                </td>
+                <td>
+                    <button (click)="editRestaurant(restaurant)">Edit</button>
+                    <button (click)="deleteRestaurant(restaurant._id)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
