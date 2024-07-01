@@ -2,31 +2,31 @@
     <h2>Restaurant Management</h2>
 
     <form [formGroup]="restaurantForm" (ngSubmit)="createOrUpdateRestaurant()">
-        <div>
-            <label for="nomRestaurant">Restaurant Name</label>
-            <input id="nomRestaurant" formControlName="nomRestaurant" />
-            <div
-                *ngIf="
-                    restaurantForm.get('nomRestaurant').invalid &&
-                    (restaurantForm.get('nomRestaurant').touched ||
-                        restaurantForm.get('nomRestaurant').dirty)
-                "
-            >
+        <mat-form-field appearance="fill">
+            <mat-label>Restaurant Name</mat-label>
+            <input
+                matInput
+                id="nomRestaurant"
+                formControlName="nomRestaurant"
+            />
+            <mat-error *ngIf="restaurantForm.get('nomRestaurant').invalid">
                 <small
                     *ngIf="restaurantForm.get('nomRestaurant').errors?.['required']"
-                    >Restaurant Name is required</small
                 >
+                    Restaurant Name is required
+                </small>
                 <small
                     *ngIf="restaurantForm.get('nomRestaurant').errors?.['maxlength']"
-                    >Restaurant Name cannot exceed 30 characters</small
                 >
-            </div>
-        </div>
+                    Restaurant Name cannot exceed 30 characters
+                </small>
+            </mat-error>
+        </mat-form-field>
 
-        <div>
-            <label for="adresseRestaurant">Restaurant Address</label>
+        <mat-form-field appearance="fill">
+            <mat-label>Restaurant Address</mat-label>
             <input
-                type="hidden"
+                matInput
                 id="adresseRestaurant"
                 formControlName="adresseRestaurant"
             />
@@ -34,107 +34,135 @@
                 (placeSelect)="placeSelected($event)"
                 [value]="restaurantForm.get('adresseRestaurant')?.value"
             ></geoapify-geocoder-autocomplete>
-            <div
-                *ngIf="
-                    restaurantForm.get('adresseRestaurant').invalid &&
-                    (restaurantForm.get('adresseRestaurant').touched ||
-                        restaurantForm.get('adresseRestaurant').dirty)
-                "
-            >
+            <mat-error *ngIf="restaurantForm.get('adresseRestaurant').invalid">
                 <small
                     *ngIf="restaurantForm.get('adresseRestaurant').errors?.['required']"
-                    >Restaurant Address is required</small
                 >
-            </div>
-        </div>
+                    Restaurant Address is required
+                </small>
+            </mat-error>
+        </mat-form-field>
 
-        <div>
-            <label for="imageRestaurant">Restaurant Image</label>
-            <input
-                type="file"
-                id="imageRestaurant"
+        <mat-form-field appearance="fill">
+            <mat-label>Restaurant Image</mat-label>
+            <ngx-mat-file-input
+                formControlName="imageRestaurant"
                 (change)="onFileSelected($event)"
-            />
-        </div>
+            ></ngx-mat-file-input>
+        </mat-form-field>
 
-        <div>
-            <label for="categorieRestaurant">Categorie Restaurant</label>
-            <select
+        <mat-form-field appearance="fill">
+            <mat-label>Categorie Restaurant</mat-label>
+            <mat-select
                 id="categorieRestaurant"
                 formControlName="categorieRestaurant"
                 multiple
             >
-                <option
+                <mat-option
                     *ngFor="let category of categorieRestaurants"
                     [value]="category._id"
                 >
                     {{ category.libelle }}
-                </option>
-            </select>
-        </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-        <div>
-            <label for="plats">Plats</label>
-            <select id="plats" formControlName="plats" multiple>
-                <option *ngFor="let plat of plats" [value]="plat._id">
+        <mat-form-field appearance="fill">
+            <mat-label>Plats</mat-label>
+            <mat-select id="plats" formControlName="plats" multiple>
+                <mat-option *ngFor="let plat of plats" [value]="plat._id">
                     {{ plat.nomPlat }}
-                </option>
-            </select>
-        </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-        <button type="submit" [disabled]="restaurantForm.invalid">
+        <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="restaurantForm.invalid"
+        >
             {{ isEditing ? "Update" : "Create" }}
         </button>
-        <button type="button" *ngIf="isEditing" (click)="cancelEdit()">
+        <button
+            mat-raised-button
+            type="button"
+            *ngIf="isEditing"
+            (click)="cancelEdit()"
+        >
             Cancel
         </button>
     </form>
 
     <div>
-        <input
-            type="text"
-            #searchString
-            (input)="searchRestaurants(searchString.value)"
-            placeholder="Search by address"
-        />
-        <button type="button" (click)="clearSearch(searchString)">
+        <mat-form-field appearance="fill">
+            <mat-label>Search by address</mat-label>
+            <input
+                matInput
+                type="text"
+                #searchString
+                (input)="searchRestaurants(searchString.value)"
+            />
+        </mat-form-field>
+        <button
+            mat-raised-button
+            type="button"
+            (click)="clearSearch(searchString)"
+        >
             Clear Search
         </button>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Categories</th>
-                <th>Plats</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let restaurant of restaurants">
-                <td>{{ restaurant.nomRestaurant }}</td>
-                <td>{{ restaurant.adresseRestaurant }}</td>
-                <td>
-                    <span
-                        *ngFor="let category of restaurant.categorieRestaurant"
-                    >
-                        {{ category.libelle }},
-                    </span>
-                </td>
-                <td>
-                    <span *ngFor="let plat of restaurant.plats">
-                        {{ plat.nomPlat }},
-                    </span>
-                </td>
-                <td>
-                    <button (click)="editRestaurant(restaurant)">Edit</button>
-                    <button (click)="deleteRestaurant(restaurant._id)">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        </tbody>
+    <table mat-table [dataSource]="restaurants">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let restaurant">
+                {{ restaurant.nomRestaurant }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef>Address</th>
+            <td mat-cell *matCellDef="let restaurant">
+                {{ restaurant.adresseRestaurant }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categories">
+            <th mat-header-cell *matHeaderCellDef>Categories</th>
+            <td mat-cell *matCellDef="let restaurant">
+                <span *ngFor="let category of restaurant.categorieRestaurant">
+                    {{ category.libelle }},
+                </span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="plats">
+            <th mat-header-cell *matHeaderCellDef>Plats</th>
+            <td mat-cell *matCellDef="let restaurant">
+                <span *ngFor="let plat of restaurant.plats">
+                    {{ plat.nomPlat }},
+                </span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let restaurant">
+                <button mat-button (click)="editRestaurant(restaurant)">
+                    Edit
+                </button>
+                <button
+                    mat-button
+                    color="warn"
+                    (click)="deleteRestaurant(restaurant._id)"
+                >
+                    Delete
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 </div>

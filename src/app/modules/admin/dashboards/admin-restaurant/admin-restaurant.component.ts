@@ -15,7 +15,7 @@ export class AdminRestaurantComponent implements OnInit {
     categorieRestaurants: any[] = [];
     plats: any[] = [];
     isEditing: boolean = false;
-    selectedFile: File | null = null;
+
     displayedColumns: string[] = [
         'name',
         'address',
@@ -72,7 +72,6 @@ export class AdminRestaurantComponent implements OnInit {
     onFileSelected(event: any) {
         const file = event.target.files[0];
         if (file) {
-            this.selectedFile = file;
             this.restaurantForm.patchValue({ imageRestaurant: file });
         }
     }
