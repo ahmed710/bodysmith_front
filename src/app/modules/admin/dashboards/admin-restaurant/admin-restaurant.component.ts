@@ -15,7 +15,7 @@ export class AdminRestaurantComponent implements OnInit {
     categorieRestaurants: any[] = [];
     plats: any[] = [];
     isEditing: boolean = false;
-
+    selectedFile: File | null = null;
     displayedColumns: string[] = [
         'name',
         'address',
@@ -72,6 +72,7 @@ export class AdminRestaurantComponent implements OnInit {
     onFileSelected(event: any) {
         const file = event.target.files[0];
         if (file) {
+            this.selectedFile = file;
             this.restaurantForm.patchValue({ imageRestaurant: file });
         }
     }
@@ -111,6 +112,11 @@ export class AdminRestaurantComponent implements OnInit {
             this.restaurantService.addRestaurant(formData).subscribe(() => {
                 this.loadRestaurants();
                 this.restaurantForm.reset();
+                this.restaurantForm.markAsPristine();
+                this.restaurantForm.markAsUntouched();
+                Object.keys(this.restaurantForm.controls).forEach((key) => {
+                    this.restaurantForm.get(key).setErrors(null);
+                });
             });
         }
     }
