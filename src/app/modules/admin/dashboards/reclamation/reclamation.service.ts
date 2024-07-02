@@ -44,4 +44,8 @@ export class ReclamationService
             })
         );
     }
+    deleteById(id : number ): Observable<any>
+    {
+        return this._httpClient.delete('http://127.0.0.1:9090/reclamation/'+id);
+    }
 }

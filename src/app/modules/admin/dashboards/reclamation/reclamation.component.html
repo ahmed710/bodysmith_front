@@ -124,16 +124,19 @@
                         mat-header-cell
                         mat-sort-header
                         *matHeaderCellDef>
-                        View in details
+                        details
                     </th>
                     <td
                         mat-cell
                         *matCellDef="let transaction">
                                 <span
-                                    class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase">
+                                    class="space-x-0.5 inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase">
                                     <span class="leading-relaxed whitespace-nowrap"><button  [routerLink]="['/dashboards/reclamation/',transaction._id]">View</button></span>
+                                    <span class="leading-relaxed whitespace-nowrap"><button  (click)="delete(transaction._id)">Delete</button></span>
+
                                 </span>
                     </td>
+
 
                 </ng-container>
                 <!-- Footer -->

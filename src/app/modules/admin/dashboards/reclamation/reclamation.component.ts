@@ -34,7 +34,7 @@ export class ReclamationComponent implements OnInit, AfterViewInit, OnDestroy{
     /**
      * Constructor
      */
-    constructor(private _reclamationService: ReclamationService)
+    constructor(private _reclamationService: ReclamationService )
     {
     }
 
@@ -70,6 +70,9 @@ export class ReclamationComponent implements OnInit, AfterViewInit, OnDestroy{
     {
         // Make the data source sortable
         this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
+    }
+    delete(id : number ){
+        this._reclamationService.deleteById(id).subscribe({next : () => this.data = this.data.filter((r)=>r._id != id)}) ;
     }
 
     /**
