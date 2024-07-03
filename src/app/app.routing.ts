@@ -284,6 +284,8 @@ export const appRoutes: Route[] = [
                     {path: 'add-reclamation', loadChildren: () => import('app/modules/admin/dashboards/add-reclamation/add-reclamation.module').then(m => m.AddReclamationModule)},
 
                     {path: 'crypto', loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.module').then(m => m.CryptoModule)},
+                    {path: 'commentaire', loadChildren: () => import('app/modules/admin/dashboards/commentaire/commentaire.module').then(m => m.CommentaireModule)},
+
                 ]},
 
             // Apps

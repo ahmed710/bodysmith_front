@@ -1,6 +1,6 @@
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
+    ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
     OnDestroy,
     OnInit,
@@ -24,17 +24,17 @@ import {FinanceService} from "../finance/finance.service";
 })
 export class ReclamationComponent implements OnInit, AfterViewInit, OnDestroy{
     @ViewChild('recentTransactionsTable', {read: MatSort}) recentTransactionsTableMatSort: MatSort;
-
+    searchKey: string = '';
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = ['title','description', 'date', 'email', 'numTelReclamation', 'etat','button'];
+    recentTransactionsTableColumns: string[] = ['title','description', 'date', 'email', 'numTelReclamation', 'Traiter','etat','button','delete','actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
      * Constructor
      */
-    constructor(private _reclamationService: ReclamationService )
+    constructor(private _reclamationService: ReclamationService, private _changeDetectorRef: ChangeDetectorRef)
     {
     }
 
@@ -61,18 +61,110 @@ export class ReclamationComponent implements OnInit, AfterViewInit, OnDestroy{
                 // Prepare the chart data
                 this._prepareChartData();
             });
+
     }
 
     /**
      * After view init
      */
+    searchReclamation(): void {
+        if (!this.searchKey.trim()) {
+            alert('Entrez une chaine non vide svp,voici tous les données');
+            this._reclamationService.data$
+                .pipe(takeUntil(this._unsubscribeAll))
+                .subscribe((data) => {
+
+                    // Store the data
+                    this.data = data;
+
+                    // Store the table data
+                    this.recentTransactionsDataSource.data = data;
+                    this._changeDetectorRef.markForCheck();
+                    // Prepare the chart data
+                    this._prepareChartData();
+                });
+            return;
+        }
+
+        this._reclamationService.searchReclamation(this.searchKey).subscribe((reclamations: any) => {
+            // Assuming you handle the search results accordingly, for example:
+            console.log('Search results:', reclamations);
+            this.data = reclamations;
+            this.recentTransactionsDataSource.data = reclamations;
+            // Optionally, update UI or store search results
+        }, error => {
+            console.error('Error searching:', error);
+            // Handle error as needed
+        });
+    }
+    traiter(id: number): void {
+        this._reclamationService.traiterReclamation(id).subscribe({
+            next: (response) => {
+                // Handle success as needed
+                console.log('Reclamation traitée:', response);
+                this.updateData();
+            },
+            error: (error) => {
+                console.error('Error traiter reclamation:', error);
+                // Handle error as needed
+            }
+        });
+    }
+
+    ouvrire(id: number): void {
+        this._reclamationService.ouvrireReclamation(id).subscribe({
+            next: (response) => {
+                // Handle success as needed
+                console.log('Reclamation ouverte:', response);
+                this.updateData();
+            },
+            error: (error) => {
+                console.error('Error ouvrir reclamation:', error);
+                // Handle error as needed
+            }
+        });
+    }
+
+    fermer(id: number): void {
+        this._reclamationService.fermerReclamation(id).subscribe({
+            next: (response) => {
+                // Handle success as needed
+                console.log('Reclamation fermée:', response);
+                this.updateData();
+            },
+            error: (error) => {
+                console.error('Error fermer reclamation:', error);
+                // Handle error as needed
+            }
+        });
+    }
+    private updateData(): void {
+        this._reclamationService.getData().subscribe((data) => {
+            this.data = data;
+            this.recentTransactionsDataSource = data;
+            this._changeDetectorRef.markForCheck();
+        });
+    }
+
     ngAfterViewInit(): void
     {
         // Make the data source sortable
         this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
     }
-    delete(id : number ){
-        this._reclamationService.deleteById(id).subscribe({next : () => this.data = this.data.filter((r)=>r._id != id)}) ;
+    delete(id: number): void {
+        this._reclamationService.deleteById(id).subscribe({
+            next: () => {
+                // Filter out the deleted item from this.data
+                this.data = this.data.filter((r) => r._id !== id);
+
+                // Update MatTableDataSource with the filtered data
+                this.recentTransactionsDataSource.data = this.data;
+            },
+            error: (error) => {
+                console.error('Error deleting reclamation:', error);
+                // Handle error as needed
+            }
+        });
     }
 
     /**

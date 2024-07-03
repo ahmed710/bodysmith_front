@@ -147,7 +147,16 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon : 'heroicons_outline:currency-dollar',
                 link : '/dashboards/crypto'
             },
-            
+            {
+                id   : 'dashboards.commentaire',
+                title: 'Commentaire',
+                type : 'basic',
+                icon : 'heroicons_outline:currency-dollar',
+                link : '/dashboards/commentaire'
+            }
+
+        ]
+    },
     {
         id: 'apps',
         title: 'Applications',

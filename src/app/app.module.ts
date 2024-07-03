@@ -16,6 +16,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {NgApexchartsModule} from "ng-apexcharts";
 import { AddReclamationComponent } from './modules/admin/dashboards/add-reclamation/add-reclamation.component';
+import { CommentaireComponent } from './modules/admin/dashboards/commentaire/commentaire.component';
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     scrollPositionRestoration: 'enabled'
@@ -24,6 +25,7 @@ const routerConfig: ExtraOptions = {
 @NgModule({
     declarations: [
         AppComponent,
+        CommentaireComponent,
     ],
     imports: [
         BrowserModule,

@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, tap} from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class ReclamationService {
+export class CommentaireService {
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
     /**
@@ -33,30 +33,11 @@ export class ReclamationService {
      * Get data
      */
     getData(): Observable<any> {
-        return this._httpClient.get('http://127.0.0.1:9090/reclamation/').pipe(
+        return this._httpClient.get('http://127.0.0.1:9090/commentaire/').pipe(
             tap((response: any) => {
                 this._data.next(response);
                 console.log(response);
             })
         );
-    }
-
-    deleteById(id: number): Observable<any> {
-        return this._httpClient.delete('http://127.0.0.1:9090/reclamation/' + id);
-    }
-
-    searchReclamation(key: string): Observable<any> {
-        return this._httpClient.get(`http://127.0.0.1:9090/reclamation/search/${key}`);
-    }
-    traiterReclamation(id: number): Observable<any> {
-        return this._httpClient.patch(`http://127.0.0.1:9090/reclamation/${id}/traiter`, {});
-    }
-
-    ouvrireReclamation(id: number): Observable<any> {
-        return this._httpClient.patch(`http://127.0.0.1:9090/reclamation/${id}/ouvrire`, {});
-    }
-
-    fermerReclamation(id: number): Observable<any> {
-        return this._httpClient.patch(`http://127.0.0.1:9090/reclamation/${id}/fermer`, {});
     }
 }

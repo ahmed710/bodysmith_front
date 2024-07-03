@@ -43,4 +43,11 @@ export class ReclamationDetailsService
             })
         );
     }
+    updateReclamation(id: number, updatedData: any): Observable<any> {
+        return this._httpClient.patch('http://127.0.0.1:9090/reclamation/'+id, updatedData);
+    }
+    getCommentaires(idUser: string,idReclamation : number){
+        return this._httpClient.get('http://127.0.0.1:9090/commentaire/'+idUser+'/'+idReclamation);
+    }
+
 }
