@@ -5,16 +5,16 @@ import {
     RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RestaurantService } from '../services/restaurant.service';
+import { PlatService } from '../services/plat.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class AdminRestaurantResolver implements Resolve<any> {
+export class AdminPlatResolver implements Resolve<any> {
     /**
      * Constructor
      */
-    constructor(private _adminRestaurantService: RestaurantService) {}
+    constructor(private _adminPlatService: PlatService) {}
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -30,6 +30,6 @@ export class AdminRestaurantResolver implements Resolve<any> {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any> {
-        return this._adminRestaurantService.getAllRestaurants();
+        return this._adminPlatService.getAllPlats();
     }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RestaurantService } from './restaurant.service';
-import { CategorieRestaurantService } from './categorie-restaurant.service';
-import { PlatService } from './plat.service';
+import { CategorieRestaurantService } from '../services/categorie-restaurant.service';
+import { RestaurantService } from '../services/restaurant.service';
+import { PlatService } from '../services/plat.service';
 import { FormGroupDirective } from '@angular/forms';
 
 @Component({

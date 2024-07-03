@@ -149,7 +149,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:cash',
                 link: '/dashboards/admin-restaurant',
             },
-        ]
+            {
+                id: 'dashboards.plat-restaurant',
+                title: 'Plat',
+                type: 'basic',
+                icon: 'heroicons_outline:cake',
+                link: '/dashboards/admin-plat',
+            },
+        ],
     },
     {
         id: 'apps',
