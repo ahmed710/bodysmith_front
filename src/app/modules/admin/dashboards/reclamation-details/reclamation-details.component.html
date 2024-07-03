@@ -62,6 +62,7 @@
         </div>
     </div>
 </div>
+{{cmnts[0].description}}
 <div
     class="settings-cog fixed flex items-center justify-center right-0 w-10 h-10 shadow-lg rounded-l-lg z-90 cursor-pointer bg-red-600 bg-opacity-90 print:hidden"
     [class.lg:right-0]="config.layout === 'centered' || config.layout === 'material'"
@@ -72,9 +73,7 @@
         class="icon-size-5 text-white animate-spin-slow"
         [svgIcon]="'heroicons_solid:cog'"></mat-icon>
 </div>
-<div *ngIf="che ==true ">
-    {{cmnts}}
-</div>
+
 
 <fuse-drawer
     class="w-screen min-w-screen sm:w-100 sm:min-w-100 z-999"
@@ -93,6 +92,12 @@
         </div>
 
     </div>
-
-</fuse-drawer>
+    <table *ngIf="cmnts.length !== 0">
+        <tr>
+            <th>ID</th>
+        </tr>
+        <tr *ngFor="let a of cmnts">
+            <td>{{a.description}}</td>
+        </tr>
+    </table></fuse-drawer>
 {{cmnts}}
