@@ -1,0 +1,95 @@
+<div>
+    <h2>Category Restaurant Management</h2>
+
+    <form
+        [formGroup]="categorieRestaurantForm"
+        (ngSubmit)="createOrUpdateCategorieRestaurant()"
+    >
+        <div>
+            <label for="libelle">Category Name</label>
+            <input id="libelle" formControlName="libelle" />
+            <div
+                *ngIf="
+                    categorieRestaurantForm.get('libelle').invalid &&
+                    (categorieRestaurantForm.get('libelle').touched ||
+                        categorieRestaurantForm.get('libelle').dirty)
+                "
+            >
+                <small
+                    *ngIf="categorieRestaurantForm.get('libelle').errors?.['required']"
+                    >Category Name is required</small
+                >
+                <small
+                    *ngIf="categorieRestaurantForm.get('libelle').errors?.['maxlength']"
+                    >Category Name cannot exceed 20 characters</small
+                >
+            </div>
+        </div>
+
+        <div>
+            <label for="imageCategorieRestaurant">Category Image</label>
+            <input
+                type="file"
+                id="imageCategorieRestaurant"
+                (change)="onFileSelected($event)"
+            />
+        </div>
+
+        <div>
+            <label for="restaurants">Restaurants</label>
+            <select id="restaurants" formControlName="restaurants" multiple>
+                <option
+                    *ngFor="let restaurant of restaurants"
+                    [value]="restaurant._id"
+                >
+                    {{ restaurant.nomRestaurant }}
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" [disabled]="categorieRestaurantForm.invalid">
+            {{ isEditing ? "Update" : "Create" }}
+        </button>
+        <button type="button" *ngIf="isEditing" (click)="cancelEdit()">
+            Cancel
+        </button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Category Name</th>
+                <th>Restaurants</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let categorieRestaurant of categorieRestaurants">
+                <td>{{ categorieRestaurant.libelle }}</td>
+                <td>
+                    <span
+                        *ngFor="
+                            let restaurant of categorieRestaurant.restaurants
+                        "
+                    >
+                        {{ restaurant.nomRestaurant }},
+                    </span>
+                </td>
+                <td>
+                    <button
+                        (click)="editCategorieRestaurant(categorieRestaurant)"
+                    >
+                        Edit
+                    </button>
+                    <button
+                        (click)="
+                            deleteCategorieRestaurant(categorieRestaurant._id)
+                        "
+                    >
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

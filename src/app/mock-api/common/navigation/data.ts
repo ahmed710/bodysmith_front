@@ -156,6 +156,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:cake',
                 link: '/dashboards/admin-plat',
             },
+            {
+                id: 'dashboards.categorie-restaurant',
+                title: 'Categorie Restaurant',
+                type: 'basic',
+                icon: 'heroicons_outline:navigation',
+                link: '/dashboards/admin-categorie-restaurant',
+            },
         ],
     },
     {

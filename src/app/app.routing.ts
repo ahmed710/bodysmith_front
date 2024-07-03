@@ -332,6 +332,13 @@ export const appRoutes: Route[] = [
                                 'app/modules/admin/dashboards/admin-plat/admin-plat.module'
                             ).then((m) => m.AdminPlatModule),
                     },
+                    {
+                        path: 'admin-categorie-restaurant',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/admin-categorie-restaurant/admin-categorie-restaurant.module'
+                            ).then((m) => m.AdminCategorieRestaurantModule),
+                    },
                 ],
             },
 
