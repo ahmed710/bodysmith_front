@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RestaurantService } from './restaurant.service';
 import { CategorieRestaurantService } from './categorie-restaurant.service';
 import { PlatService } from './plat.service';
+import { FormGroupDirective } from '@angular/forms';
 
 @Component({
     selector: 'app-admin-restaurant',
@@ -36,12 +37,15 @@ export class AdminRestaurantComponent implements OnInit {
             _id: [null],
             nomRestaurant: [
                 '',
-                [Validators.required, Validators.maxLength(30)],
+                [Validators.required, Validators.maxLength(15)],
             ],
-            adresseRestaurant: ['', Validators.required],
-            plats: [[]],
-            categorieRestaurant: [[]],
-            imageRestaurant: [null],
+            adresseRestaurant: [
+                '',
+                [Validators.required, Validators.minLength(4)],
+            ],
+            plats: ['', []],
+            categorieRestaurant: ['', []],
+            imageRestaurant: ['', null],
         });
 
         this.loadRestaurants();
@@ -85,7 +89,7 @@ export class AdminRestaurantComponent implements OnInit {
         }
     }
 
-    createOrUpdateRestaurant() {
+    createOrUpdateRestaurant(formDirective: FormGroupDirective) {
         if (this.restaurantForm.invalid) return;
 
         const formData = new FormData();
@@ -106,17 +110,14 @@ export class AdminRestaurantComponent implements OnInit {
                 .updateRestaurant(this.restaurantForm.value._id, formData)
                 .subscribe(() => {
                     this.loadRestaurants();
-                    this.cancelEdit();
+                    this.cancelEdit(formDirective);
                 });
         } else {
             this.restaurantService.addRestaurant(formData).subscribe(() => {
                 this.loadRestaurants();
-                this.restaurantForm.reset();
+                this.clearForm(formDirective); // Reset form after successful creation
                 this.restaurantForm.markAsPristine();
                 this.restaurantForm.markAsUntouched();
-                Object.keys(this.restaurantForm.controls).forEach((key) => {
-                    this.restaurantForm.get(key).setErrors(null);
-                });
             });
         }
     }
@@ -144,9 +145,9 @@ export class AdminRestaurantComponent implements OnInit {
         });
     }
 
-    cancelEdit() {
+    cancelEdit(formDirective: FormGroupDirective) {
         this.isEditing = false;
-        this.restaurantForm.reset();
+        this.clearForm(formDirective);
     }
 
     searchRestaurants(query: string) {
@@ -164,5 +165,13 @@ export class AdminRestaurantComponent implements OnInit {
     clearSearch(input: any) {
         input.value = '';
         this.loadRestaurants();
+    }
+
+    clearForm(formDirective: FormGroupDirective) {
+        this.isEditing = false;
+        this.restaurantForm.reset();
+        this.restaurantForm.markAsPristine();
+        this.restaurantForm.markAsUntouched();
+        formDirective.resetForm(); // Reset the FormGroupDirective
     }
 }

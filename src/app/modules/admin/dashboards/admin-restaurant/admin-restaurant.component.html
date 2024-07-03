@@ -57,7 +57,8 @@
             <!-- Add Restaurant Form -->
             <form
                 [formGroup]="restaurantForm"
-                (ngSubmit)="createOrUpdateRestaurant()"
+                (ngSubmit)="createOrUpdateRestaurant(formDirective)"
+                #formDirective="ngForm"
             >
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <!-- Restaurant Name -->
@@ -83,13 +84,18 @@
                     <!-- Restaurant Address -->
                     <mat-form-field appearance="fill">
                         <mat-label>Restaurant Address</mat-label>
-                        <input matInput formControlName="adresseRestaurant" />
                         <geoapify-geocoder-autocomplete
                             (placeSelect)="placeSelected($event)"
                             [value]="
                                 restaurantForm.get('adresseRestaurant')?.value
                             "
-                        ></geoapify-geocoder-autocomplete>
+                            [placeholder]="'Choose from suggestions'"
+                        >
+                            <input
+                                matInput
+                                formControlName="adresseRestaurant"
+                            />
+                        </geoapify-geocoder-autocomplete>
                         <mat-error
                             *ngIf="
                                 restaurantForm.get('adresseRestaurant').invalid
@@ -99,6 +105,11 @@
                                 *ngIf="restaurantForm.get('adresseRestaurant').errors?.['required']"
                             >
                                 Restaurant Address is required
+                            </small>
+                            <small
+                                *ngIf="restaurantForm.get('adresseRestaurant').errors?.['minlength']"
+                            >
+                                Restaurant Address is too short
                             </small>
                         </mat-error>
                     </mat-form-field>
@@ -142,8 +153,8 @@
                     </mat-form-field>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="flex justify-start">
+                <!-- Action Buttons -->
+                <div class="flex space-x-2">
                     <button
                         mat-raised-button
                         color="primary"
@@ -154,38 +165,37 @@
                     </button>
                     <button
                         mat-raised-button
+                        color="warn"
                         type="button"
-                        *ngIf="isEditing"
-                        (click)="cancelEdit()"
-                        class="ml-4"
+                        (click)="cancelEdit(formDirective)"
                     >
                         Cancel
                     </button>
                 </div>
             </form>
 
-            <!-- Search Input and Button -->
-            <div class="flex items-center mb-4">
-                <mat-form-field appearance="fill" class="flex-auto">
-                    <mat-label>Search by Address</mat-label>
-                    <input
-                        matInput
-                        type="text"
-                        #searchString
-                        (input)="searchRestaurants(searchString.value)"
-                    />
-                </mat-form-field>
-                <button
-                    mat-raised-button
-                    type="button"
-                    (click)="clearSearch(searchString)"
-                    class="ml-4"
-                >
-                    Clear Search
-                </button>
+            <!-- Search and Add Button -->
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex-1">
+                    <mat-form-field appearance="fill" class="w-full">
+                        <mat-label>Search</mat-label>
+                        <input
+                            #searchString
+                            matInput
+                            (input)="searchRestaurants($event.target.value)"
+                        />
+                        <button
+                            mat-icon-button
+                            matSuffix
+                            (click)="clearSearch(searchString)"
+                        >
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
             </div>
 
-            <!-- Table of Restaurants -->
+            <!-- Restaurant List -->
             <div>
                 <table mat-table [dataSource]="restaurants">
                     <!-- Define your table columns -->
