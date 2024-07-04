@@ -16,6 +16,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
 import {ReclamationRoutes} from "./commentaire.routing";
 import {CommentaireComponent} from "./commentaire.component";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
     declarations: [
@@ -30,7 +33,10 @@ import {CommentaireComponent} from "./commentaire.component";
         MatMenuModule,
         MatProgressBarModule,
         MatSortModule,
-        MatTableModule
+        MatTableModule,
+        MatInputModule,
+        MatSelectModule,
+        MatListModule
     ]
 })
 export class CommentaireModule

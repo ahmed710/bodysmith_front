@@ -49,5 +49,13 @@ export class ReclamationDetailsService
     getCommentaires(idUser: string,idReclamation : number){
         return this._httpClient.get('http://127.0.0.1:9090/commentaire/'+idUser+'/'+idReclamation);
     }
-
+    deleteById(id: number): Observable<any> {
+        return this._httpClient.delete('http://127.0.0.1:9090/commentaire/' + id);
+    }
+    updateCommentSelection(commentId: string, selection: boolean) {
+        return this._httpClient.patch(`http://127.0.0.1:9090/commentaire/${commentId}/${selection ? 'valide' : 'invalide'}`, {})
+            .pipe(
+                // You can add error handling and other logic here if needed
+            );
+    }
 }

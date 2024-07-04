@@ -62,42 +62,17 @@
         </div>
     </div>
 </div>
-{{cmnts[0].description}}
-<div
-    class="settings-cog fixed flex items-center justify-center right-0 w-10 h-10 shadow-lg rounded-l-lg z-90 cursor-pointer bg-red-600 bg-opacity-90 print:hidden"
-    [class.lg:right-0]="config.layout === 'centered' || config.layout === 'material'"
-    [class.lg:right-16]="config.layout !== 'centered' && config.layout !== 'material'"
-    style="top: 275px"
-    (click)="settingsDrawer.toggle()">
-    <mat-icon
-        class="icon-size-5 text-white animate-spin-slow"
-        [svgIcon]="'heroicons_solid:cog'"></mat-icon>
+<div style="width: 10px"> </div>
+<div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden" >
+    <mat-card-content class="flex flex-col p-6 pb-4 " *ngFor="let  c of cmnts">
+        <h1>Description :   {{c.description}}</h1>
+        <h1>Selection :   {{c.selection}} </h1>
+        <button (click)="markAsSatisfied(c._id)" class="button-layout">Mark as Satisfied</button>
+
+        <button (click)="markAsUnsatisfied(c._id)" class="button-layout">Mark as Unsatisfied</button>
+
+        <button (click)="delete(c._id)" class="button-layout" >Delete Comment</button>
+    </mat-card-content>
+    <hr/>
+
 </div>
-
-
-<fuse-drawer
-    class="w-screen min-w-screen sm:w-100 sm:min-w-100 z-999"
-    fixed
-    [mode]="'over'"
-    [name]="'learnDrawer'"
-    [position]="'right'"
-    #settingsDrawer>
-
-    <div class="flex flex-col w-full overflow-auto bg-card">
-        <div class="flex flex-row items-center px-6 h-20 min-h-20 text-white bg-primary">
-            <mat-icon
-                class="icon-size-7 text-current"
-                [svgIcon]="'heroicons_solid:cog'"></mat-icon>
-            <div class="ml-3 text-2xl font-semibold tracking-tight">Les commentaires en relation</div>
-        </div>
-
-    </div>
-    <table *ngIf="cmnts.length !== 0">
-        <tr>
-            <th>ID</th>
-        </tr>
-        <tr *ngFor="let a of cmnts">
-            <td>{{a.description}}</td>
-        </tr>
-    </table></fuse-drawer>
-{{cmnts}}

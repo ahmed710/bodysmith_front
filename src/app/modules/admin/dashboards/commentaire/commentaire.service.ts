@@ -1,43 +1,32 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CommentaireService {
-    private _data: BehaviorSubject<any> = new BehaviorSubject(null);
+    private apiUrl = 'http://127.0.0.1:9090/service/';
 
-    /**
-     * Constructor
-     */
-    constructor(private _httpClient: HttpClient) {
+    constructor(private http: HttpClient) {}
+
+    getData(): Observable<any[]> {
+        return this.http.get<any[]>(this.apiUrl);
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Getter for data
-     */
-    get data$(): Observable<any> {
-        return this._data.asObservable();
+    addService(service: any): Observable<any> {
+        return this.http.post<any>(this.apiUrl, service);
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+    updateService(serviceId: string, updatedService: any): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/${serviceId}`, updatedService);
+    }
 
-    /**
-     * Get data
-     */
-    getData(): Observable<any> {
-        return this._httpClient.get('http://127.0.0.1:9090/commentaire/').pipe(
-            tap((response: any) => {
-                this._data.next(response);
-                console.log(response);
-            })
-        );
+    deleteService(serviceId: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/${serviceId}`);
+    }
+
+    searchServices(key: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/search/${key}`);
     }
 }
