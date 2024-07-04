@@ -147,4 +147,8 @@ export class AdminPlatComponent implements OnInit {
                 : { positiveNumber: { value: control.value } };
         };
     }
+
+    isLast(item: any, array: any[]): boolean {
+        return array.indexOf(item) === array.length - 1;
+    }
 }

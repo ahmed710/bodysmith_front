@@ -174,4 +174,8 @@ export class AdminRestaurantComponent implements OnInit {
         this.restaurantForm.markAsUntouched();
         formDirective.resetForm(); // Reset the FormGroupDirective
     }
+
+    isLast(item: any, array: any[]): boolean {
+        return array.indexOf(item) === array.length - 1;
+    }
 }

@@ -185,7 +185,16 @@
                                     let category of restaurant.categorieRestaurant
                                 "
                             >
-                                {{ category.libelle }},
+                                {{ category.libelle
+                                }}<span
+                                    *ngIf="
+                                        !isLast(
+                                            category,
+                                            restaurant.categorieRestaurant
+                                        )
+                                    "
+                                    >,
+                                </span>
                             </span>
                         </td>
                     </ng-container>
@@ -194,7 +203,10 @@
                         <th mat-header-cell *matHeaderCellDef>Plats</th>
                         <td mat-cell *matCellDef="let restaurant">
                             <span *ngFor="let plat of restaurant.plats">
-                                {{ plat.nomPlat }},
+                                {{ plat.nomPlat
+                                }}<span *ngIf="!isLast(plat, restaurant.plats)"
+                                    >,
+                                </span>
                             </span>
                         </td>
                     </ng-container>
