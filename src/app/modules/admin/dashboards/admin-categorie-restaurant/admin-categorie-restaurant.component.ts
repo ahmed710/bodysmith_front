@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+    FormBuilder,
+    FormGroup,
+    Validators,
+    FormGroupDirective,
+} from '@angular/forms';
 import { CategorieRestaurantService } from '../services/categorie-restaurant.service';
 import { RestaurantService } from '../services/restaurant.service';
 
@@ -15,6 +20,8 @@ export class AdminCategorieRestaurantComponent implements OnInit {
     isEditing: boolean = false;
     selectedFile: File | null = null;
     displayedColumns: string[] = ['libelle', 'restaurants', 'actions'];
+
+    @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
 
     constructor(
         private fb: FormBuilder,
@@ -58,7 +65,7 @@ export class AdminCategorieRestaurantComponent implements OnInit {
         }
     }
 
-    createOrUpdateCategorieRestaurant() {
+    createOrUpdateCategorieRestaurant(formDirective: FormGroupDirective) {
         if (this.categorieRestaurantForm.invalid) return;
 
         const formData = new FormData();
@@ -78,14 +85,14 @@ export class AdminCategorieRestaurantComponent implements OnInit {
                 )
                 .subscribe(() => {
                     this.loadCategorieRestaurants();
-                    this.cancelEdit();
+                    this.cancelEdit(formDirective);
                 });
         } else {
             this.categorieRestaurantService
                 .addCategorieRestaurant(formData)
                 .subscribe(() => {
                     this.loadCategorieRestaurants();
-                    this.categorieRestaurantForm.reset();
+                    this.resetForm(formDirective);
                 });
         }
     }
@@ -111,8 +118,17 @@ export class AdminCategorieRestaurantComponent implements OnInit {
             });
     }
 
-    cancelEdit() {
+    cancelEdit(formDirective: FormGroupDirective) {
         this.isEditing = false;
+        this.resetForm(formDirective);
+    }
+
+    private resetForm(formDirective: FormGroupDirective) {
+        formDirective.resetForm();
         this.categorieRestaurantForm.reset();
+    }
+
+    isLast(item: any, array: any[]): boolean {
+        return array.indexOf(item) === array.length - 1;
     }
 }

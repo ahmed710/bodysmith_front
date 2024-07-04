@@ -146,7 +146,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'dashboards.admin-restaurant',
                 title: 'Restaurant',
                 type: 'basic',
-                icon: 'heroicons_outline:cash',
+                icon: 'heroicons_outline:home',
                 link: '/dashboards/admin-restaurant',
             },
             {
@@ -160,7 +160,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'dashboards.categorie-restaurant',
                 title: 'Categorie Restaurant',
                 type: 'basic',
-                icon: 'heroicons_outline:navigation',
+                icon: 'heroicons_outline:duplicate',
                 link: '/dashboards/admin-categorie-restaurant',
             },
         ],

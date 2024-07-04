@@ -1,95 +1,147 @@
-<div>
-    <h2>Category Restaurant Management</h2>
-
-    <form
-        [formGroup]="categorieRestaurantForm"
-        (ngSubmit)="createOrUpdateCategorieRestaurant()"
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 pb-22 sm:pt-12 sm:pb-28 sm:px-10 bg-default dark:bg-transparent"
     >
-        <div>
-            <label for="libelle">Category Name</label>
-            <input id="libelle" formControlName="libelle" />
-            <div
-                *ngIf="
-                    categorieRestaurantForm.get('libelle').invalid &&
-                    (categorieRestaurantForm.get('libelle').touched ||
-                        categorieRestaurantForm.get('libelle').dirty)
-                "
-            >
-                <small
-                    *ngIf="categorieRestaurantForm.get('libelle').errors?.['required']"
-                    >Category Name is required</small
+        <div class="flex-1 min-w-0">
+            <div class="mt-2">
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
                 >
-                <small
-                    *ngIf="categorieRestaurantForm.get('libelle').errors?.['maxlength']"
-                    >Category Name cannot exceed 20 characters</small
-                >
+                    Category Restaurant Management
+                </h2>
             </div>
         </div>
+    </div>
+    <div class="flex-auto -mt-16 p-6 sm:p-10 rounded-t-2xl shadow bg-card">
+        <form
+            [formGroup]="categorieRestaurantForm"
+            (ngSubmit)="createOrUpdateCategorieRestaurant(formDirective)"
+            #formDirective="ngForm"
+        >
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <mat-form-field appearance="fill">
+                    <mat-label>Category Name</mat-label>
+                    <input matInput id="libelle" formControlName="libelle" />
+                    <mat-error
+                        *ngIf="categorieRestaurantForm.get('libelle').invalid"
+                    >
+                        <small
+                            *ngIf="categorieRestaurantForm.get('libelle').errors?.['required']"
+                            >Category Name is required</small
+                        >
+                        <small
+                            *ngIf="categorieRestaurantForm.get('libelle').errors?.['maxlength']"
+                            >Category Name cannot exceed 20 characters</small
+                        >
+                    </mat-error>
+                </mat-form-field>
 
-        <div>
-            <label for="imageCategorieRestaurant">Category Image</label>
-            <input
-                type="file"
-                id="imageCategorieRestaurant"
-                (change)="onFileSelected($event)"
-            />
-        </div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Category Image</mat-label>
+                    <ngx-mat-file-input
+                        formControlName="imageCategorieRestaurant"
+                        (change)="onFileSelected($event)"
+                    ></ngx-mat-file-input>
+                </mat-form-field>
 
-        <div>
-            <label for="restaurants">Restaurants</label>
-            <select id="restaurants" formControlName="restaurants" multiple>
-                <option
-                    *ngFor="let restaurant of restaurants"
-                    [value]="restaurant._id"
+                <mat-form-field appearance="fill">
+                    <mat-label>Restaurants</mat-label>
+                    <mat-select
+                        id="restaurants"
+                        formControlName="restaurants"
+                        multiple
+                    >
+                        <mat-option
+                            *ngFor="let restaurant of restaurants"
+                            [value]="restaurant._id"
+                        >
+                            {{ restaurant.nomRestaurant }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="flex space-x-2">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="categorieRestaurantForm.invalid"
                 >
-                    {{ restaurant.nomRestaurant }}
-                </option>
-            </select>
+                    {{ isEditing ? "Update" : "Create" }}
+                </button>
+                <button
+                    mat-raised-button
+                    color="warn"
+                    type="button"
+                    (click)="cancelEdit(formDirective)"
+                >
+                    Cancel
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-6">
+            <table mat-table [dataSource]="categorieRestaurants">
+                <ng-container matColumnDef="libelle">
+                    <th mat-header-cell *matHeaderCellDef>Category Name</th>
+                    <td mat-cell *matCellDef="let categorieRestaurant">
+                        {{ categorieRestaurant.libelle }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="restaurants">
+                    <th mat-header-cell *matHeaderCellDef>Restaurants</th>
+                    <td mat-cell *matCellDef="let categorieRestaurant">
+                        <span
+                            *ngFor="
+                                let restaurant of categorieRestaurant.restaurants
+                            "
+                            >{{ restaurant.nomRestaurant
+                            }}<span
+                                *ngIf="
+                                    !isLast(
+                                        restaurant,
+                                        categorieRestaurant.restaurants
+                                    )
+                                "
+                                >,
+                            </span>
+                        </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let categorieRestaurant">
+                        <button
+                            mat-icon-button
+                            (click)="
+                                editCategorieRestaurant(categorieRestaurant)
+                            "
+                        >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button
+                            mat-icon-button
+                            color="warn"
+                            (click)="
+                                deleteCategorieRestaurant(
+                                    categorieRestaurant._id
+                                )
+                            "
+                        >
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+            </table>
         </div>
-
-        <button type="submit" [disabled]="categorieRestaurantForm.invalid">
-            {{ isEditing ? "Update" : "Create" }}
-        </button>
-        <button type="button" *ngIf="isEditing" (click)="cancelEdit()">
-            Cancel
-        </button>
-    </form>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Category Name</th>
-                <th>Restaurants</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let categorieRestaurant of categorieRestaurants">
-                <td>{{ categorieRestaurant.libelle }}</td>
-                <td>
-                    <span
-                        *ngFor="
-                            let restaurant of categorieRestaurant.restaurants
-                        "
-                    >
-                        {{ restaurant.nomRestaurant }},
-                    </span>
-                </td>
-                <td>
-                    <button
-                        (click)="editCategorieRestaurant(categorieRestaurant)"
-                    >
-                        Edit
-                    </button>
-                    <button
-                        (click)="
-                            deleteCategorieRestaurant(categorieRestaurant._id)
-                        "
-                    >
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    </div>
 </div>
