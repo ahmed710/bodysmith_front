@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Category Management</h1>
+    <button class="add-btn" (click)="openAddPopup()">Add New Category</button>
+    <ul>
+        <li *ngFor="let category of categories; let i = index">
+            {{ category.nom }}
+            <button class="edit-btn" (click)="openEditPopup(category, i)">Edit</button>
+            <button class="delete-btn" (click)="deleteCategory(category)">Delete</button>
+        </li>
+    </ul>
+</div>
+
+<div id="popup" class="popup" *ngIf="isPopupOpen">
+    <div class="popup-content">
+        <span class="close-btn" (click)="closePopup()">&times;</span>
+        <h2>{{ popupTitle }}</h2>
+        <input type="text" [(ngModel)]="categoryName" placeholder="Category Name">
+        <button class="save-btn" (click)="saveCategory(categoryName)">{{ popupAction }}</button>
+    </div>
+</div>
+
+

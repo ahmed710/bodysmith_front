@@ -273,6 +273,20 @@ export const appRoutes: Route[] = [
                                 'app/modules/admin/dashboards/crypto/crypto.module'
                             ).then((m) => m.CryptoModule),
                     },
+                    {
+                        path: 'add-product',
+                        loadComponent: () =>
+                            import(
+                                'app/modules/admin/dashboards/add-product/add-product.component'
+                                ).then((m) => m.AddProductComponent),
+                    },
+                    {
+                        path: 'add-category',
+                        loadComponent: () =>
+                            import(
+                                'app/modules/admin/dashboards/add-category/add-category.component'
+                                ).then((m) => m.AddCategoryComponent),
+                    },
                 ],
             },
             {path: 'dashboards', children: [
