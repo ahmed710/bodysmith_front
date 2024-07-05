@@ -33,19 +33,18 @@ export class ProfileComponent implements OnInit {
         console.log('ProfileComponent initialized');
 
         // Fetch userId and role from AuthService
-        this.userId = this.authService.currentUser._id; // Example assuming _id is available in currentUser
-        this.role = this.authService.currentUser.role; // Example assuming role is available in currentUser
+        this.userId = this.authService.currentUser._id; 
+        this.role = this.authService.currentUser.role; 
 
         // Fetch user profile based on userId and role
         this.userService.getUserProfile(this.userId, this.role).subscribe(
             (profile) => {
                 console.log('Profile fetched:', profile);
                 this.userProfile = profile;
-                this.cdr.markForCheck(); // Manually trigger change detection
+                this.cdr.markForCheck();
             },
             (error) => {
                 console.error('Error fetching user profile:', error);
-                // Handle error as per your application requirements
             }
         );
     }
