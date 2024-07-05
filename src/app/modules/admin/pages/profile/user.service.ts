@@ -13,7 +13,12 @@ export class UserService {
         const url = `${baseUrl}/${role.toLowerCase()}/${userId}`;
         console.log(userId);
         console.log(role.toLowerCase());
-        
+
         return this.http.get(url);
+    }
+    updateUserProfile(userId: string, userData: any) {
+        const baseUrl = 'http://127.0.0.1:9090';
+        const url = `${baseUrl}/${userData.role.toLowerCase()}/${userId}`;
+        return this.http.put(`${url}`, userData);
     }
 }

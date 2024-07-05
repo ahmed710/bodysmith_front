@@ -6,7 +6,6 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// import { AuthService } from '../core/auth/auth.service'; // Adjust the path as per your project structure
 import { AuthService } from '../../../../core/auth/auth.service'; // Adjust the path as per your project structure
 import { UserService } from './user.service'; // Adjust the path as per your project structure
 
@@ -33,8 +32,8 @@ export class ProfileComponent implements OnInit {
         console.log('ProfileComponent initialized');
 
         // Fetch userId and role from AuthService
-        this.userId = this.authService.currentUser._id; 
-        this.role = this.authService.currentUser.role; 
+        this.userId = this.authService.currentUser._id;
+        this.role = this.authService.currentUser.role;
 
         // Fetch user profile based on userId and role
         this.userService.getUserProfile(this.userId, this.role).subscribe(
@@ -47,5 +46,20 @@ export class ProfileComponent implements OnInit {
                 console.error('Error fetching user profile:', error);
             }
         );
+    }
+
+    updateUserProfile(): void {
+        this.userService
+            .updateUserProfile(this.userId, this.userProfile)
+            .subscribe(
+                (response) => {
+                    console.log('Profile updated successfully:', response);
+                    alert('Profile updated successfully');
+                },
+                (error) => {
+                    console.error('Error updating profile:', error);
+                    alert('Error updating profile');
+                }
+            );
     }
 }

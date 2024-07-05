@@ -1,85 +1,4 @@
-<!-- <div *ngIf="userProfile">
-    <p>{{ userProfile.firstName }}</p>
-    <div class="profile-header">
-        <h2>User Profile</h2>
-    </div>
-    <div class="profile-content">
-        <div class="profile-item">
-            <div class="profile-label">First Name:</div>
-            <div class="profile-value">
-                {{ userProfile.firstName }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Last Name:</div>
-            <div class="profile-value">
-                {{ userProfile.lastName }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Nickname:</div>
-            <div class="profile-value">
-                {{ userProfile.nickName }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Email:</div>
-            <div class="profile-value">
-                {{ userProfile.email }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Role:</div>
-            <div class="profile-value">
-                {{ userProfile.role }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Address:</div>
-            <div class="profile-value">
-                {{ userProfile.adresse }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Phone Number:</div>
-            <div class="profile-value">
-                {{ userProfile.phoneNumber }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Birth Date:</div>
-            <div class="profile-value">
-                {{ userProfile.birthDate | date }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Active:</div>
-            <div class="profile-value">
-                {{ userProfile.active ? "Yes" : "No" }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Approved:</div>
-            <div class="profile-value">
-                {{ userProfile.isApproved ? "Yes" : "No" }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Created At:</div>
-            <div class="profile-value">
-                {{ userProfile.createdAt | date }}
-            </div>
-        </div>
-        <div class="profile-item">
-            <div class="profile-label">Updated At:</div>
-            <div class="profile-value">
-                {{ userProfile.updatedAt | date }}
-            </div>
-        </div>
-    </div>
-</div>
-     -->
-
+<!-- src/app/profile/profile.component.html -->
 <div
     *ngIf="userProfile"
     class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden"
@@ -101,25 +20,25 @@
             <mat-card appearance="outlined">
                 <mat-card-content>
                     <h1>First Name:</h1>
-                    {{ userProfile.firstName }}
+                    <input [(ngModel)]="userProfile.firstName" />
                 </mat-card-content>
             </mat-card>
             <mat-card appearance="outlined">
                 <mat-card-content>
                     <h1>Last Name:</h1>
-                    {{ userProfile.lastName }}
+                    <input [(ngModel)]="userProfile.lastName" />
                 </mat-card-content>
             </mat-card>
             <mat-card appearance="outlined">
                 <mat-card-content>
                     <h1>Nickname:</h1>
-                    {{ userProfile.nickName }}
+                    <input [(ngModel)]="userProfile.nickName" />
                 </mat-card-content>
             </mat-card>
             <mat-card appearance="outlined">
                 <mat-card-content>
                     <h1>Email:</h1>
-                    {{ userProfile.email }}
+                    <input [(ngModel)]="userProfile.email" />
                 </mat-card-content>
             </mat-card>
             <mat-card appearance="outlined">
@@ -131,19 +50,19 @@
             <mat-card appearance="outlined">
                 <mat-card-content>
                     <h1>Address:</h1>
-                    {{ userProfile.adresse }}
+                    <input [(ngModel)]="userProfile.adresse" />
                 </mat-card-content>
             </mat-card>
             <mat-card appearance="outlined">
                 <mat-card-content>
                     <h1>Phone Number:</h1>
-                    {{ userProfile.phoneNumber }}
+                    <input [(ngModel)]="userProfile.phoneNumber" />
                 </mat-card-content>
             </mat-card>
             <mat-card appearance="outlined">
                 <mat-card-content>
                     <h1>Birth Date:</h1>
-                    {{ userProfile.birthDate | date }}
+                    <input [(ngModel)]="userProfile.birthDate" />
                 </mat-card-content>
             </mat-card>
             <mat-card appearance="outlined">
@@ -158,6 +77,9 @@
                     {{ userProfile.isApproved ? "Yes" : "No" }}
                 </mat-card-content>
             </mat-card>
+            <button (click)="updateUserProfile()" class="btn btn-primary">
+                Update Profile
+            </button>
         </div>
     </div>
 </div>

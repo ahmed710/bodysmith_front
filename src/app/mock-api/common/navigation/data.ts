@@ -43,13 +43,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type: 'group',
         icon: 'heroicons_outline:home',
         children: [
-            {
-                id: 'dashboards.project',
-                title: 'Project',
-                type: 'basic',
-                icon: 'heroicons_outline:clipboard-check',
-                link: '/dashboards/project',
-            },
+            // {
+            //     id: 'dashboards.project',
+            //     title: 'Project',
+            //     type: 'basic',
+            //     icon: 'heroicons_outline:clipboard-check',
+            //     link: '/dashboards/project',
+            // },
             {
                 id: 'dashboards.analytics',
                 title: 'Analytics',
