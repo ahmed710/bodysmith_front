@@ -277,7 +277,7 @@ export const appRoutes: Route[] = [
             },
             {path: 'dashboards', children: [
                 {path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.module').then(m => m.ProjectModule)},
-                {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule)},
+                // {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule)},
                 {path: 'reclamation',
                     children: [{path:'',loadChildren: () => import('app/modules/admin/dashboards/reclamation/reclamation.module').then(m => m.ReclamationModule)},
                             {path:':id',loadChildren: () => import('app/modules/admin/dashboards/reclamation-details/reclamation-details.module').then(m => m.ReclamationDetailsModule)}],},
