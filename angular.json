@@ -50,12 +50,13 @@
                             ]
                         },
                         "styles": [
-                            "src/@fuse/styles/tailwind.scss",
-                            "src/@fuse/styles/themes.scss",
-                            "src/styles/vendors.scss",
-                            "src/@fuse/styles/main.scss",
-                            "src/styles/styles.scss",
-                            "src/styles/tailwind.scss"
+                          "@angular/material/prebuilt-themes/indigo-pink.css",
+                          "src/@fuse/styles/tailwind.scss",
+                          "src/@fuse/styles/themes.scss",
+                          "src/styles/vendors.scss",
+                          "src/@fuse/styles/main.scss",
+                          "src/styles/styles.scss",
+                          "src/styles/tailwind.scss"
                         ],
                         "scripts": []
                     },
@@ -119,7 +120,8 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles/styles.scss"
+                          "@angular/material/prebuilt-themes/indigo-pink.css",
+                          "src/styles/styles.scss"
                         ],
                         "scripts": []
                     }
