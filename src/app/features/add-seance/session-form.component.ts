@@ -13,10 +13,16 @@ export class AddSeanceFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.seanceForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required]
-      // Add other fields as needed
+      typeEvent: ['', Validators.required],
+      idSalleDeSport: ['', Validators.required],
+      dateEvent: ['', Validators.required],
+      nbrParticipant: [0, [Validators.required, Validators.min(0)]],
+      capacity: [10, [Validators.required, Validators.min(1)]],
+      heureDebutEvent: ['', Validators.required],
+      duree: [2, [Validators.required, Validators.min(1)]],
+      coach: ['', Validators.required],
     });
+   
   }
 
   onSubmit(): void {
