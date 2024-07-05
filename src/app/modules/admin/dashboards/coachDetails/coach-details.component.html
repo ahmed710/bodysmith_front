@@ -1,0 +1,87 @@
+<div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+    <div class="flex flex-col p-6 pb-4">
+        <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+                <div
+                    class="mr-4 text-lg font-medium tracking-tight leading-6 truncate"
+                >
+                    Coach ID
+                </div>
+                <div class="text-secondary font-medium">{{ coach._id }}</div>
+            </div>
+            <div class="ml-2">
+                <button
+                    class="h-6 min-h-6 px-2 rounded-full bg-hover"
+                    mat-button
+                    (click)="getData()"
+                >
+                    <span class="font-medium text-sm text-secondary"
+                        >Show More
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="clicked" class="container">
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>First Name:</h1>
+                    {{ coach.firstName }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Last Name:</h1>
+                    {{ coach.lastName }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Nick Name:</h1>
+                    {{ coach.nickName }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Email:</h1>
+                    {{ coach.email }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Phone Number:</h1>
+                    {{ coach.phoneNumber }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Address:</h1>
+                    {{ coach.adresse }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Birth Date:</h1>
+                    {{ coach.birthDate | date : "MMM dd, y" }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Role:</h1>
+                    {{ coach.role }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Active:</h1>
+                    {{ coach.active ? "Yes" : "No" }}
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Approved:</h1>
+                    {{ coach.isApproved ? "Yes" : "No" }}
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,199 @@
+<div class="flex flex-col flex-auto w-full">
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-8">
+        <!-- Recent transactions table -->
+        <div
+            class="xl:col-span-3 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden"
+        >
+            <div class="p-6">
+                <div
+                    class="mr-4 text-lg font-medium tracking-tight leading-6 truncate"
+                >
+                    List of Coaches
+                </div>
+                <div class="text-secondary font-medium">
+                    Total: {{ data?.results }}
+                </div>
+            </div>
+            <div class="overflow-x-auto mx-6">
+                <table
+                    class="w-full bg-transparent"
+                    mat-table
+                    matSort
+                    [dataSource]="coachDataSource"
+                    [trackBy]="trackByFn"
+                    #coachTable
+                >
+                    <!-- First Name -->
+                    <ng-container matColumnDef="firstName">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            First Name
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span
+                                class="pr-6 font-medium text-sm text-secondary whitespace-nowrap"
+                            >
+                                {{ coach.firstName || "---" }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Last Name -->
+                    <ng-container matColumnDef="lastName">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            Last Name
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span
+                                class="pr-6 font-medium text-sm text-secondary whitespace-nowrap"
+                            >
+                                {{ coach.lastName || "---" }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Email -->
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            Email
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span class="pr-6 whitespace-nowrap">
+                                {{ coach.email || "---" }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Phone Number -->
+                    <ng-container matColumnDef="phoneNumber">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            Phone Number
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span class="pr-6 font-medium whitespace-nowrap">
+                                {{ coach.phoneNumber || "---" }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Birth Date -->
+                    <ng-container matColumnDef="birthDate">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            Birth Date
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span class="pr-6 whitespace-nowrap">
+                                {{ coach.birthDate | date : "MMM dd, y" }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Role -->
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            Role
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span class="pr-6 font-medium whitespace-nowrap">
+                                {{ coach.role || "---" }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Active -->
+                    <ng-container matColumnDef="active">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            Active
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span
+                                class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase"
+                                [ngClass]="{
+                                    'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-50':
+                                        coach.active,
+                                    'bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-50':
+                                        !coach.active
+                                }"
+                            >
+                                <span class="leading-relaxed whitespace-nowrap">
+                                    {{ coach.active ? "Active" : "Inactive" }}
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Is Approved -->
+                    <ng-container matColumnDef="isApproved">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                            Is Approved
+                        </th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span
+                                class="inline-flex items-center font-bold text-xs px-2.5 py-0.5 rounded-full tracking-wide uppercase"
+                                [ngClass]="{
+                                    'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-50':
+                                        coach.isApproved,
+                                    'bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-50':
+                                        !coach.isApproved
+                                }"
+                            >
+                                <span class="leading-relaxed whitespace-nowrap">
+                                    {{
+                                        coach.isApproved
+                                            ? "Approved"
+                                            : "Not Approved"
+                                    }}
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Actions -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let coach">
+                            <span class="inline-flex items-center">
+                                <button
+                                    class="text-blue-500 mr-2"
+                                    [routerLink]="[
+                                        '/dashboards/coaches',
+                                        coach._id
+                                    ]"
+                                >
+                                    View
+                                </button>
+                                <button
+                                    class="text-red-500"
+                                    (click)="removeCoach(coach._id)"
+                                >
+                                    Remove
+                                </button>
+                                <button
+                                    (click)="toggleAccountStatus(coach)"
+                                    [ngClass]="
+                                        coach.active
+                                            ? 'desactive-button'
+                                            : 'reactive-button'
+                                    "
+                                >
+                                    <mat-icon>{{
+                                        coach.active ? "desactivate" : "reactivate"
+                                    }}</mat-icon>
+                                </button>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <tr
+                        mat-header-row
+                        *matHeaderRowDef="coachTableColumns"
+                    ></tr>
+                    <tr
+                        class="order-row h-16"
+                        mat-row
+                        *matRowDef="let row; columns: coachTableColumns"
+                    ></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    NgForm,
+    Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseValidators } from '@fuse/validators';
@@ -7,31 +13,32 @@ import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
-    selector     : 'auth-reset-password',
-    templateUrl  : './reset-password.component.html',
+    selector: 'auth-reset-password',
+    templateUrl: './reset-password.component.html',
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations,
 })
-export class AuthResetPasswordComponent implements OnInit
-{
+export class AuthResetPasswordComponent implements OnInit {
     @ViewChild('resetPasswordNgForm') resetPasswordNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {
-        type   : 'success',
-        message: ''
+        type: 'success',
+        message: '',
     };
     resetPasswordForm: UntypedFormGroup;
     showAlert: boolean = false;
+    token: string;
+    email: string;
 
     /**
      * Constructor
      */
     constructor(
         private _authService: AuthService,
-        private _formBuilder: UntypedFormBuilder
-    )
-    {
-    }
+        private _formBuilder: UntypedFormBuilder,
+        private _route: ActivatedRoute,
+        private _router: Router
+    ) {}
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -40,15 +47,24 @@ export class AuthResetPasswordComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
+        // Get the token and email from the query parameters
+        this._route.queryParams.subscribe((params) => {
+            this.token = params['token'];
+            this.email = params['email'];
+        });
+
         // Create the form
-        this.resetPasswordForm = this._formBuilder.group({
-                password       : ['', Validators.required],
-                passwordConfirm: ['', Validators.required]
+        this.resetPasswordForm = this._formBuilder.group(
+            {
+                password: ['', Validators.required],
+                passwordConfirm: ['', Validators.required],
             },
             {
-                validators: FuseValidators.mustMatch('password', 'passwordConfirm')
+                validators: FuseValidators.mustMatch(
+                    'password',
+                    'passwordConfirm'
+                ),
             }
         );
     }
@@ -60,11 +76,9 @@ export class AuthResetPasswordComponent implements OnInit
     /**
      * Reset password
      */
-    resetPassword(): void
-    {
+    resetPassword(): void {
         // Return if the form is invalid
-        if ( this.resetPasswordForm.invalid )
-        {
+        if (this.resetPasswordForm.invalid) {
             return;
         }
 
@@ -75,10 +89,13 @@ export class AuthResetPasswordComponent implements OnInit
         this.showAlert = false;
 
         // Send the request to the server
-        this._authService.resetPassword(this.resetPasswordForm.get('password').value)
+        this._authService
+            .resetPassword(
+                this.token,
+                this.resetPasswordForm.get('password').value
+            )
             .pipe(
                 finalize(() => {
-
                     // Re-enable the form
                     this.resetPasswordForm.enable();
 
@@ -91,19 +108,20 @@ export class AuthResetPasswordComponent implements OnInit
             )
             .subscribe(
                 (response) => {
-
                     // Set the alert
                     this.alert = {
-                        type   : 'success',
-                        message: 'Your password has been reset.'
+                        type: 'success',
+                        message: 'Your password has been reset.',
                     };
+
+                    // Redirect to the login page
+                    this._router.navigate(['/sign-in']);
                 },
                 (response) => {
-
                     // Set the alert
                     this.alert = {
-                        type   : 'error',
-                        message: 'Something went wrong, please try again.'
+                        type: 'error',
+                        message: 'Something went wrong, please try again.',
                     };
                 }
             );

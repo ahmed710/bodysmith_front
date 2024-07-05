@@ -1,0 +1,31 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap : 10px ;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.desactive-button {
+    color: #4B70F5;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Define styles for reactive button */
+.reactive-button {
+    color: #FAA300;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Optional: Add hover styles for better user experience */
+.desactive-button:hover,
+.reactive-button:hover {
+    opacity: 0.8;
+}
