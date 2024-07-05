@@ -3,13 +3,14 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
+import {AddReclamationModule} from "./modules/admin/dashboards/add-reclamation/add-reclamation.module";
 
 // @formatter:off
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
     // Redirect empty path to '/dashboards/project'
-    { path: '', pathMatch: 'full', redirectTo: 'dashboards/project' },
+    {path: '', pathMatch : 'full', redirectTo: 'dashboards/project'},
 
     // Redirect signed-in user to the '/dashboards/project'
     //
@@ -274,6 +275,18 @@ export const appRoutes: Route[] = [
                     },
                 ],
             },
+            {path: 'dashboards', children: [
+                {path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.module').then(m => m.ProjectModule)},
+                // {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule)},
+                {path: 'reclamation',
+                    children: [{path:'',loadChildren: () => import('app/modules/admin/dashboards/reclamation/reclamation.module').then(m => m.ReclamationModule)},
+                            {path:':id',loadChildren: () => import('app/modules/admin/dashboards/reclamation-details/reclamation-details.module').then(m => m.ReclamationDetailsModule)}],},
+                    {path: 'add-reclamation', loadChildren: () => import('app/modules/admin/dashboards/add-reclamation/add-reclamation.module').then(m => m.AddReclamationModule)},
+
+                    {path: 'crypto', loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.module').then(m => m.CryptoModule)},
+                    {path: 'categories', loadChildren: () => import('app/modules/admin/dashboards/commentaire/commentaire.module').then(m => m.CommentaireModule)},
+
+                ]},
 
             // Apps
             {

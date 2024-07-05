@@ -1,0 +1,30 @@
+<div class="example-container">
+    <!-- Search bar -->
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Search by libelle" [(ngModel)]="searchKey" (ngModelChange)="searchServices()">
+    </mat-form-field>
+
+    <!-- Add new service form -->
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="New Service Name" [(ngModel)]="newServiceName">
+        <button mat-icon-button color="primary" (click)="addService()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <!-- List of services -->
+    <mat-list>
+        <mat-list-item *ngFor="let service of data">
+            <div mat-line>{{ service.libelle }}</div>
+            <div mat-line>
+                <input matInput [(ngModel)]="editServiceName" placeholder="Edit Service Name">
+                <button mat-icon-button color="primary" (click)="updateService(service._id)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteService(service._id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </mat-list-item>
+    </mat-list>
+</div>

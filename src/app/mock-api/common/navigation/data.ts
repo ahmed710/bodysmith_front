@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { FuseNavigationItem } from '@fuse/components/navigation';
+import {FuseNavigationItem} from '@fuse/components/navigation';
 
 const UserRole = {
     ADMIN: 'ADMIN',
@@ -107,13 +107,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: '/dashboards/users',
             },
             {
-                id: 'dashboards.finance',
-                title: 'Admins',
-                type: 'basic',
-                icon: 'heroicons_outline:cash',
-                link: '/dashboards/finance',
-            },
-            {
                 id: 'dashboards.analytics',
                 title: 'Change Password',
                 type: 'basic',
@@ -121,13 +114,36 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: '/dashboards/analytics',
             },
             {
-                id: 'dashboards.crypto',
-                title: 'Create Admin',
+                id: 'dashboards.reclamation',
+                title: 'Reclamation',
+                type: 'basic',
+                icon: 'heroicons_outline:cash',
+                link: '/dashboards/reclamation'
+            },
+            {
+
+                id: 'dashboards.add-reclamation',
+                title: 'Add Reclamation',
                 type: 'basic',
                 icon: 'heroicons_outline:currency-dollar',
-                link: '/dashboards/crypto',
+                link: '/dashboards/add-reclamation'
             },
-        ],
+            {
+                id: 'dashboards.crypto',
+                title: 'Crypto',
+                type: 'basic',
+                icon: 'heroicons_outline:currency-dollar',
+                link: '/dashboards/crypto'
+            },
+            {
+                id: 'dashboards.categories',
+                title: 'Categories',
+                type: 'basic',
+                icon: 'heroicons_outline:currency-dollar',
+                link: '/dashboards/categories'
+            }
+
+        ]
     },
     {
         id: 'apps',

@@ -1,0 +1,78 @@
+<div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+    <div class="flex flex-col p-6 pb-4">
+        <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Reclamation Numéro</div>
+                <div class="text-secondary font-medium">{{ id }}</div>
+            </div>
+            <div class="ml-2">
+                <button
+                    class="h-6 min-h-6 px-2 rounded-full bg-hover"
+                    mat-button
+                    (click)="getComments(data.userReclamation, id)">
+                    <span class="font-medium text-sm text-secondary">commentaires en relation  </span>
+                </button>
+            </div>
+        </div>
+        <div class="container">
+
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Title : </h1>
+                    <input matInput [(ngModel)]="data.title">
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Description : </h1>
+                    <input matInput [(ngModel)]="data.description">
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Etat : </h1>
+                    <input matInput [(ngModel)]="data.etat">
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Status : </h1>
+                    <input matInput [(ngModel)]="data.status">
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Email : </h1>
+                    <input matInput [(ngModel)]="data.email">
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Numéro de Téléphone : </h1>
+                    <input matInput [(ngModel)]="data.numTelReclamation">
+                </mat-card-content>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-content>
+                    <h1>Crée en : </h1>
+                    <input matInput [(ngModel)]="data.createdAt" disabled>
+                </mat-card-content>
+            </mat-card>
+            <button mat-button (click)="updateReclamation()">Update</button>
+        </div>
+    </div>
+</div>
+<div style="width: 10px"> </div>
+<div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden" >
+    <mat-card-content class="flex flex-col p-6 pb-4 " *ngFor="let  c of cmnts">
+        <h1>Description :   {{c.description}}</h1>
+        <h1>Selection :   {{c.selection}} </h1>
+        <button (click)="markAsSatisfied(c._id)" class="button-layout">Mark as Satisfied</button>
+
+        <button (click)="markAsUnsatisfied(c._id)" class="button-layout">Mark as Unsatisfied</button>
+
+        <button (click)="delete(c._id)" class="button-layout" >Delete Comment</button>
+    </mat-card-content>
+    <hr/>
+
+</div>

@@ -1,0 +1,67 @@
+<div class="container fuse-drawer-content">
+    <h1>Ajouter une reclamation</h1>
+    <h3>Veuillez remplir les champs obligatoires</h3>
+        <form [formGroup]="reclamation">
+            <div class="mb-3">
+                <label class="form-label">
+                    Titre
+                </label>
+                <input class="form-control" formControlName="title"><br>
+            </div>
+            <div class="alert alert-danger"
+                 *ngIf="reclamation.get('title')!.invalid && (reclamation.get('title')!.touched || reclamation.get('title')!.dirty)">
+                <div *ngIf="reclamation.get('title')!.errors!['required']" class="text-red-400">
+
+                    Le titre est obligatoire
+
+                </div>
+            </div>
+            <div class="mb-3">
+
+
+                <label class="form-label">
+                    Description
+                </label>
+                <input class="form-control" formControlName="description"><br>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Email
+                </label>
+                <input class="form-control" formControlName="email"><br>
+            </div>
+            <div class="alert alert-danger"
+                 *ngIf="reclamation.get('email')!.invalid && (reclamation.get('email')!.touched || reclamation.get('email')!.dirty)">
+                <div *ngIf="reclamation.get('email')!.errors!['required']" class="text-red-400">
+
+                    L'email est obligatoire
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    numTelReclamation
+                </label>
+                <input class="form-control" formControlName="numTelReclamation"><br>
+            </div>
+            <div class="alert alert-danger"
+                 *ngIf="reclamation.get('numTelReclamation')!.invalid && (reclamation.get('numTelReclamation')!.touched || reclamation.get('numTelReclamation')!.dirty)">
+                <div *ngIf="reclamation.get('numTelReclamation')!.errors!['required']" class="text-red-400">
+
+                    Apart number is required!
+
+                </div>
+                <div *ngIf="reclamation.get('numTelReclamation')!.errors!['pattern']" class="text-red-400">
+
+                    Apart number must contains only numbers
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Piece Jointe :
+                </label> <input type="file"/><br></div>
+           
+            <button><input type="submit" (click)="add()"></button>
+        </form>
+</div>
