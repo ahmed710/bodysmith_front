@@ -141,9 +141,29 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:currency-dollar',
                 link: '/dashboards/categories'
-            }
-
-        ]
+            },
+            {
+                id: 'dashboards.admin-restaurant',
+                title: 'Restaurant',
+                type: 'basic',
+                icon: 'heroicons_outline:home',
+                link: '/dashboards/admin-restaurant',
+            },
+            {
+                id: 'dashboards.plat-restaurant',
+                title: 'Plat',
+                type: 'basic',
+                icon: 'heroicons_outline:cake',
+                link: '/dashboards/admin-plat',
+            },
+            {
+                id: 'dashboards.categorie-restaurant',
+                title: 'Categorie Restaurant',
+                type: 'basic',
+                icon: 'heroicons_outline:duplicate',
+                link: '/dashboards/admin-categorie-restaurant',
+            },
+        ],
     },
     {
         id: 'apps',

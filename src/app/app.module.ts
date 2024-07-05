@@ -18,14 +18,12 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import { AddReclamationComponent } from './modules/admin/dashboards/add-reclamation/add-reclamation.component';
 import { CommentaireComponent } from './modules/admin/dashboards/commentaire/commentaire.component';
 const routerConfig: ExtraOptions = {
-    preloadingStrategy       : PreloadAllModules,
-    scrollPositionRestoration: 'enabled'
+    preloadingStrategy: PreloadAllModules,
+    scrollPositionRestoration: 'enabled',
 };
 
 @NgModule({
-    declarations: [
-        AppComponent,
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -45,10 +43,6 @@ const routerConfig: ExtraOptions = {
         MatMenuModule,
         NgApexchartsModule
     ],
-    bootstrap   : [
-        AppComponent
-    ]
+    bootstrap: [AppComponent],
 })
-export class AppModule
-{
-}
+export class AppModule {}

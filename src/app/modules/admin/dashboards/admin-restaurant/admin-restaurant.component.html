@@ -1,0 +1,243 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 pb-22 sm:pt-12 sm:pb-28 sm:px-10 bg-default dark:bg-transparent"
+    >
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                >
+                    Restaurant Management
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto -mt-16 p-6 sm:p-10 rounded-t-2xl shadow bg-card">
+        <div class="space-y-6">
+            <!-- Add Restaurant Form -->
+            <form
+                [formGroup]="restaurantForm"
+                (ngSubmit)="createOrUpdateRestaurant(formDirective)"
+                #formDirective="ngForm"
+            >
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <!-- Restaurant Name -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Restaurant Name</mat-label>
+                        <input matInput formControlName="nomRestaurant" />
+                        <mat-error
+                            *ngIf="restaurantForm.get('nomRestaurant').invalid"
+                        >
+                            <small
+                                *ngIf="restaurantForm.get('nomRestaurant').errors?.['required']"
+                            >
+                                Restaurant Name is required
+                            </small>
+                            <small
+                                *ngIf="restaurantForm.get('nomRestaurant').errors?.['maxlength']"
+                            >
+                                Restaurant Name cannot exceed 30 characters
+                            </small>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Restaurant Address -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Restaurant Address</mat-label>
+                        <geoapify-geocoder-autocomplete
+                            (placeSelect)="placeSelected($event)"
+                            [value]="
+                                restaurantForm.get('adresseRestaurant')?.value
+                            "
+                            [placeholder]="'Choose from suggestions'"
+                        >
+                            <input
+                                matInput
+                                formControlName="adresseRestaurant"
+                            />
+                        </geoapify-geocoder-autocomplete>
+                        <mat-error
+                            *ngIf="
+                                restaurantForm.get('adresseRestaurant').invalid
+                            "
+                        >
+                            <small
+                                *ngIf="restaurantForm.get('adresseRestaurant').errors?.['required']"
+                            >
+                                Restaurant Address is required
+                            </small>
+                            <small
+                                *ngIf="restaurantForm.get('adresseRestaurant').errors?.['minlength']"
+                            >
+                                Restaurant Address is too short
+                            </small>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Restaurant Image -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Restaurant Image</mat-label>
+                        <ngx-mat-file-input
+                            formControlName="imageRestaurant"
+                            (change)="onFileSelected($event)"
+                        ></ngx-mat-file-input>
+                    </mat-form-field>
+
+                    <!-- Categorie Restaurant -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Categorie Restaurant</mat-label>
+                        <mat-select
+                            formControlName="categorieRestaurant"
+                            multiple
+                        >
+                            <mat-option
+                                *ngFor="let category of categorieRestaurants"
+                                [value]="category._id"
+                            >
+                                {{ category.libelle }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!-- Plats -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Plats</mat-label>
+                        <mat-select formControlName="plats" multiple>
+                            <mat-option
+                                *ngFor="let plat of plats"
+                                [value]="plat._id"
+                            >
+                                {{ plat.nomPlat }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex space-x-2">
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="restaurantForm.invalid"
+                    >
+                        {{ isEditing ? "Update" : "Create" }}
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="warn"
+                        type="button"
+                        (click)="cancelEdit(formDirective)"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+
+            <!-- Search and Add Button -->
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex-1">
+                    <mat-form-field appearance="fill" class="w-full">
+                        <mat-label>Search</mat-label>
+                        <input
+                            #searchString
+                            matInput
+                            (input)="searchRestaurants($event.target.value)"
+                        />
+                        <button
+                            mat-icon-button
+                            matSuffix
+                            (click)="clearSearch(searchString)"
+                        >
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Restaurant List -->
+            <div>
+                <table mat-table [dataSource]="restaurants">
+                    <!-- Define your table columns -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Name</th>
+                        <td mat-cell *matCellDef="let restaurant">
+                            {{ restaurant.nomRestaurant }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="address">
+                        <th mat-header-cell *matHeaderCellDef>Address</th>
+                        <td mat-cell *matCellDef="let restaurant">
+                            {{ restaurant.adresseRestaurant }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="categories">
+                        <th mat-header-cell *matHeaderCellDef>Categories</th>
+                        <td mat-cell *matCellDef="let restaurant">
+                            <span
+                                *ngFor="
+                                    let category of restaurant.categorieRestaurant
+                                "
+                            >
+                                {{ category.libelle
+                                }}<span
+                                    *ngIf="
+                                        !isLast(
+                                            category,
+                                            restaurant.categorieRestaurant
+                                        )
+                                    "
+                                    >,
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="plats">
+                        <th mat-header-cell *matHeaderCellDef>Plats</th>
+                        <td mat-cell *matCellDef="let restaurant">
+                            <span *ngFor="let plat of restaurant.plats">
+                                {{ plat.nomPlat
+                                }}<span *ngIf="!isLast(plat, restaurant.plats)"
+                                    >,
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let restaurant">
+                            <button
+                                mat-icon-button
+                                (click)="editRestaurant(restaurant)"
+                            >
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button
+                                mat-icon-button
+                                color="warn"
+                                (click)="deleteRestaurant(restaurant._id)"
+                            >
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <!-- Table rows -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

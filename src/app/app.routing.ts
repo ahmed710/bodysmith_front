@@ -10,7 +10,7 @@ import {AddReclamationModule} from "./modules/admin/dashboards/add-reclamation/a
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
     // Redirect empty path to '/dashboards/project'
-    {path: '', pathMatch : 'full', redirectTo: 'dashboards/project'},
+    { path: '', pathMatch: 'full', redirectTo: 'dashboards/project' },
 
     // Redirect signed-in user to the '/dashboards/project'
     //
@@ -287,6 +287,60 @@ export const appRoutes: Route[] = [
                     {path: 'categories', loadChildren: () => import('app/modules/admin/dashboards/commentaire/commentaire.module').then(m => m.CommentaireModule)},
 
                 ]},
+            {
+                path: 'dashboards',
+                children: [
+                    {
+                        path: 'project',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/project/project.module'
+                            ).then((m) => m.ProjectModule),
+                    },
+                    // {
+                    //     path: 'analytics',
+                    //     loadChildren: () =>
+                    //         import(
+                    //             'app/modules/admin/dashboards/analytics/analytics.module'
+                    //         ).then((m) => m.AnalyticsModule),
+                    // },
+                    {
+                        path: 'finance',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/finance/finance.module'
+                            ).then((m) => m.FinanceModule),
+                    },
+                    {
+                        path: 'crypto',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/crypto/crypto.module'
+                            ).then((m) => m.CryptoModule),
+                    },
+                    {
+                        path: 'admin-restaurant',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/admin-restaurant/admin-restaurant.module'
+                            ).then((m) => m.AdminRestaurantModule),
+                    },
+                    {
+                        path: 'admin-plat',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/admin-plat/admin-plat.module'
+                            ).then((m) => m.AdminPlatModule),
+                    },
+                    {
+                        path: 'admin-categorie-restaurant',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/dashboards/admin-categorie-restaurant/admin-categorie-restaurant.module'
+                            ).then((m) => m.AdminCategorieRestaurantModule),
+                    },
+                ],
+            },
 
             // Apps
             {
@@ -493,13 +547,6 @@ export const appRoutes: Route[] = [
                         loadChildren: () =>
                             import(
                                 'app/modules/admin/pages/profile/profile.module'
-                            ).then((m) => m.ProfileModule),
-                    },
-                    {
-                        path: 'profile',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/pages/users/profile.module'
                             ).then((m) => m.ProfileModule),
                     },
 

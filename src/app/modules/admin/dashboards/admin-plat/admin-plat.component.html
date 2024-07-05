@@ -1,0 +1,220 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 pb-22 sm:pt-12 sm:pb-28 sm:px-10 bg-default dark:bg-transparent"
+    >
+        <div class="flex-1 min-w-0">
+            <div class="mt-2">
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                >
+                    Plat Management
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="flex-auto -mt-16 p-6 sm:p-10 rounded-t-2xl shadow bg-card">
+        <form
+            [formGroup]="platForm"
+            (ngSubmit)="createOrUpdatePlat(formDirective)"
+            #formDirective="ngForm"
+        >
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <mat-form-field appearance="fill">
+                    <mat-label>Plat Name</mat-label>
+                    <input matInput id="nomPlat" formControlName="nomPlat" />
+                    <mat-error *ngIf="platForm.get('nomPlat').invalid">
+                        <small
+                            *ngIf="platForm.get('nomPlat').errors?.['required']"
+                            >Plat Name is required</small
+                        >
+                        <small
+                            *ngIf="platForm.get('nomPlat').errors?.['maxlength']"
+                            >Plat Name cannot exceed 30 characters</small
+                        >
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Plat Price</mat-label>
+                    <input
+                        matInput
+                        id="prixPlat"
+                        formControlName="prixPlat"
+                        type="number"
+                    />
+                    <mat-error *ngIf="platForm.get('prixPlat').invalid">
+                        <small
+                            *ngIf="platForm.get('prixPlat').errors?.['required']"
+                            >Plat Price is required</small
+                        >
+                        <small
+                            *ngIf="platForm.get('prixPlat').errors?.['positiveNumber']"
+                            >Price must be a positive number</small
+                        >
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cuisine</mat-label>
+                    <input matInput id="cuisine" formControlName="cuisine" />
+                    <mat-error *ngIf="platForm.get('cuisine').invalid">
+                        <small
+                            *ngIf="platForm.get('cuisine').errors?.['required']"
+                            >Cuisine is required</small
+                        >
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Calories</mat-label>
+                    <input
+                        matInput
+                        id="calories"
+                        formControlName="calories"
+                        type="number"
+                    />
+                    <mat-error *ngIf="platForm.get('calories').invalid">
+                        <small
+                            *ngIf="platForm.get('calories').errors?.['required']"
+                            >Calories are required</small
+                        >
+                        <small
+                            *ngIf="platForm.get('calories').errors?.['positiveNumber']"
+                            >Calories must be a positive number</small
+                        >
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Plat Image</mat-label>
+                    <ngx-mat-file-input
+                        formControlName="imagePlat"
+                        (change)="onFileSelected($event)"
+                    ></ngx-mat-file-input>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Categorie Plat</mat-label>
+                    <mat-select
+                        id="categoriePlat"
+                        formControlName="categoriePlat"
+                    >
+                        <mat-option
+                            *ngFor="let category of categories"
+                            [value]="category"
+                        >
+                            {{ category }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="platForm.get('categoriePlat').invalid">
+                        <small
+                            *ngIf="platForm.get('categoriePlat').errors?.['required']"
+                            >Categorie Plat is required</small
+                        >
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Restaurants</mat-label>
+                    <mat-select
+                        id="restaurants"
+                        formControlName="restaurants"
+                        multiple
+                    >
+                        <mat-option
+                            *ngFor="let restaurant of restaurants"
+                            [value]="restaurant._id"
+                        >
+                            {{ restaurant.nomRestaurant }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="flex space-x-2">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="platForm.invalid"
+                >
+                    {{ isEditing ? "Update" : "Create" }}
+                </button>
+                <button
+                    mat-raised-button
+                    color="warn"
+                    type="button"
+                    (click)="cancelEdit(formDirective)"
+                >
+                    Cancel
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-6">
+            <table mat-table [dataSource]="plats">
+                <ng-container matColumnDef="nomPlat">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let plat">{{ plat.nomPlat }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="prixPlat">
+                    <th mat-header-cell *matHeaderCellDef>Price</th>
+                    <td mat-cell *matCellDef="let plat">{{ plat.prixPlat }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="cuisine">
+                    <th mat-header-cell *matHeaderCellDef>Cuisine</th>
+                    <td mat-cell *matCellDef="let plat">{{ plat.cuisine }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="calories">
+                    <th mat-header-cell *matHeaderCellDef>Calories</th>
+                    <td mat-cell *matCellDef="let plat">{{ plat.calories }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="categoriePlat">
+                    <th mat-header-cell *matHeaderCellDef>Categorie</th>
+                    <td mat-cell *matCellDef="let plat">
+                        {{ plat.categoriePlat }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="restaurants">
+                    <th mat-header-cell *matHeaderCellDef>Restaurants</th>
+                    <td mat-cell *matCellDef="let plat">
+                        <span *ngFor="let restaurant of plat.restaurants">
+                            {{ restaurant.nomRestaurant
+                            }}<span
+                                *ngIf="!isLast(restaurant, plat.restaurants)"
+                                >,
+                            </span>
+                        </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let plat">
+                        <button mat-icon-button (click)="editPlat(plat)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button
+                            mat-icon-button
+                            color="warn"
+                            (click)="deletePlat(plat._id)"
+                        >
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+            </table>
+        </div>
+    </div>
+</div>
