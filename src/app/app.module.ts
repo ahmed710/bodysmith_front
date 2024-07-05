@@ -17,6 +17,11 @@ import {MatMenuModule} from "@angular/material/menu";
 import {NgApexchartsModule} from "ng-apexcharts";
 import { AddReclamationComponent } from './modules/admin/dashboards/add-reclamation/add-reclamation.component';
 import { CommentaireComponent } from './modules/admin/dashboards/commentaire/commentaire.component';
+import { AddProductComponent } from './modules/admin/dashboards/add-product/add-product.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { AddCategoryComponent } from './modules/admin/dashboards/add-category/add-category.component';
+import {MatIconModule} from "@angular/material/icon";
+
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled',
@@ -41,7 +46,11 @@ const routerConfig: ExtraOptions = {
         LayoutModule,
         MatButtonModule,
         MatMenuModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        ReactiveFormsModule,
+        AddProductComponent,
+        AddCategoryComponent,
+        MatIconModule
     ],
     bootstrap: [AppComponent],
 })

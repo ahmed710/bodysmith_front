@@ -163,6 +163,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:duplicate',
                 link: '/dashboards/admin-categorie-restaurant',
             },
+            {
+                id: 'dashboards.add-product',
+                title: 'Add Produit',
+                type: 'basic',
+                icon: 'heroicons_outline:duplicate',
+                link: '/dashboards/add-product',
+            },
+            {
+                id: 'dashboards.add-category',
+                title: 'Add Category',
+                type: 'basic',
+                icon: 'heroicons_outline:duplicate',
+                link: '/dashboards/add-category',
+            },
         ],
     },
     {
