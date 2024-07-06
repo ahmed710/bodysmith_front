@@ -21,6 +21,15 @@ import { AddProductComponent } from './modules/admin/dashboards/add-product/add-
 import {ReactiveFormsModule} from "@angular/forms";
 import { AddCategoryComponent } from './modules/admin/dashboards/add-category/add-category.component';
 import {MatIconModule} from "@angular/material/icon";
+import {MatTableModule} from "@angular/material/table";
+import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatCardModule} from "@angular/material/card";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -50,7 +59,18 @@ const routerConfig: ExtraOptions = {
         ReactiveFormsModule,
         AddProductComponent,
         AddCategoryComponent,
-        MatIconModule
+        MatIconModule,
+        MatTableModule,
+        MatButtonModule,
+        MatInputModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatGridListModule,
+        MatSidenavModule,
     ],
     bootstrap: [AppComponent],
 })

@@ -1,0 +1,62 @@
+
+<app-add-seance-form></app-add-seance-form>
+<div *ngIf="sessions.length > 0">
+    <h2>sessions List</h2>
+    <ul>
+      <li *ngFor="let session of sessions">
+        <p><b>Type Cours :</b> {{ session.TypeEvent }}</p>
+        <p><b>Salle de sport :</b> {{ session.IsDalleDeSport }} </p>
+        <p> <b>Date cours :</b> {{ session.DateEvent }} </p>
+        <p><b>Nombre de participants :</b>{{ session.NbrParticipant }} </p>
+        <p><b>Capacity :</b> {{ session.Capacity }} </p>
+        <p><b>Heure debut : </b>{{ session.HeureDebutEvent }}</p>
+        <p><b>Heure Fin : </b>{{ session.HeureFinEvent }}</p>
+
+
+
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="sessions.length === 0">
+    <p>No sessions found.</p>
+  </div>
+<!-- Session Form
+<form #sessionsForm="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" [(ngModel)]="sessions.DateEvent" required>
+    </div>
+    <div>
+        <label for="type">Type:</label>
+        <select id="type" name="type" [(ngModel)]="sessions.TypeEvent" required>
+            <option value="PRIVATE_COURSE">Private Course</option>
+            <option value="DANCE_COURSE">Dance Course</option>
+            <option value="BODYCOMBAT_COURSE">BodyCombat Course</option>
+            <option value="SPINNING_COURSE">Spinning Course</option>
+            <option value="ORIONTAL_DANCE_COURSE">Oriental Dance Course</option>
+        </select>
+    </div>
+    <div>
+        <label for="location">Location ID:</label>
+        <input type="number" id="location" name="location" [(ngModel)]="sessions.IdSalleDeSport" required>
+    </div>
+    <div>
+        <label for="participants">Number of Participants:</label>
+        <input type="number" id="participants" name="participants" [(ngModel)]="sessions.NbrParticipant" required>
+    </div>
+    <div>
+        <label for="capacity">Capacity:</label>
+        <input type="number" id="capacity" name="capacity" [(ngModel)]="sessions.Capacity" required>
+    </div>
+    <div>
+        <label for="startTime">Start Time:</label>
+        <input type="time" id="startTime" name="startTime" [(ngModel)]="sessions.HeureDebutEvent" required>
+    </div>
+    <div>
+        <label for="duration">Duration (in minutes):</label>
+        <input type="number" id="duration" name="duration" [(ngModel)]="sessions.Durée" required>
+    </div>
+    Add more fields as per your session entity -->
+<!--
+    <button type="submit" [disabled]="sessionForm.invalid">Save</button>
+</form> -->
