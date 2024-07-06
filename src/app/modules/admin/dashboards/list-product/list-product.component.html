@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Manage Products</h2>
+    <button class="add-btn" (click)="addProduct()">Add Product</button>
+
+    <div *ngIf="products && products.length">
+        <table class="cart-table">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity in Cart</th>
+                <th>Category</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of products" class="cart-item">
+                <td>
+                    <img *ngIf="product.image" src="{{product.image}}" class="product-image" alt="img"/>
+                </td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.idCategorie.nom }}</td>
+                <td>
+                    <button class="edit-btn" (click)="updateProduct(product._id)">Update</button>
+                </td>
+                <td>
+                    <button class="delete-btn" (click)="deleteProduct(product._id)">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

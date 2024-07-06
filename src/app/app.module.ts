@@ -30,6 +30,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import { ListProductComponent } from './modules/admin/dashboards/list-product/list-product.component';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -59,9 +60,7 @@ const routerConfig: ExtraOptions = {
         ReactiveFormsModule,
         AddProductComponent,
         AddCategoryComponent,
-        MatIconModule,
         MatTableModule,
-        MatButtonModule,
         MatInputModule,
         MatIconModule,
         MatPaginatorModule,
@@ -71,6 +70,7 @@ const routerConfig: ExtraOptions = {
         MatCardModule,
         MatGridListModule,
         MatSidenavModule,
+        ListProductComponent,
     ],
     bootstrap: [AppComponent],
 })
