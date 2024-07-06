@@ -274,6 +274,13 @@ export const appRoutes: Route[] = [
                             ).then((m) => m.CryptoModule),
                     },
                     {
+                        path: 'add-product/:id?',
+                        loadComponent: () =>
+                            import(
+                                'app/modules/admin/dashboards/add-product/add-product.component'
+                                ).then((m) => m.AddProductComponent),
+                    },
+                    {
                         path: 'add-product',
                         loadComponent: () =>
                             import(
@@ -286,6 +293,13 @@ export const appRoutes: Route[] = [
                             import(
                                 'app/modules/admin/dashboards/add-category/add-category.component'
                                 ).then((m) => m.AddCategoryComponent),
+                    },
+                    {
+                        path: 'list-product',
+                        loadComponent: () =>
+                            import(
+                                'app/modules/admin/dashboards/list-product/list-product.component'
+                                ).then((m) => m.ListProductComponent),
                     },
                 ],
             },

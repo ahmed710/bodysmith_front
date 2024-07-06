@@ -1,13 +1,25 @@
 <div class="container">
     <h1>Category Management</h1>
     <button class="add-btn" (click)="openAddPopup()">Add New Category</button>
-    <ul>
-        <li *ngFor="let category of categories; let i = index">
-            {{ category.nom }}
-            <button class="edit-btn" (click)="openEditPopup(category, i)">Edit</button>
-            <button class="delete-btn" (click)="deleteCategory(category)">Delete</button>
-        </li>
-    </ul>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Category Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let category of categories; let i = index">
+                <td>{{ category.nom }}</td>
+                <td>
+                    <button class="edit-btn" (click)="openEditPopup(category, i)">Edit</button>
+                    <button class="delete-btn" (click)="deleteCategory(category)">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div id="popup" class="popup" *ngIf="isPopupOpen">
@@ -18,5 +30,3 @@
         <button class="save-btn" (click)="saveCategory(categoryName)">{{ popupAction }}</button>
     </div>
 </div>
-
-

@@ -1,6 +1,6 @@
 <div class="formbold-main-wrapper">
     <div class="formbold-form-wrapper">
-        <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
             <div class="card">
                 <img class="formbold-img" [hidden]="imgUrl === null" [src]="imgUrl">
                 <div class="formbold-mb-3">
@@ -42,11 +42,22 @@
                     />
                 </div>
 
-                <div>
+                <div *ngIf="!productId">
                     <label class="formbold-form-label">Category</label>
-                    <select class="formbold-form-input" name="categorie" id="categorie" formControlName="idCategorie">
+                    <select class="formbold-form-input" name="categorie" id="categorie2" formControlName="idCategorie">
                         <option value="" class="formbold-form-input">Select a category...</option>
                         <option *ngFor="let category of categories" [value]="category._id">
+                            {{ category.nom }}
+                        </option>
+                    </select>
+                </div>
+
+
+                <div *ngIf="productId">
+                    <label class="formbold-form-label">Category</label>
+                    <select class="formbold-form-input" name="categorie" id="categorie" formControlName="idCategorie">
+                        <option [value]="currentProduct.idCategorie._id" class="formbold-form-input">{{currentProduct.idCategorie.nom}}</option>
+                        <option *ngFor="let category of filtredCategories()" [value]="category._id">
                             {{ category.nom }}
                         </option>
                     </select>

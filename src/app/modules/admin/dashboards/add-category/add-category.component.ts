@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CategoryService} from './category.service';
+import {CategoryService} from '../services/category.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {FormsModule} from "@angular/forms";
