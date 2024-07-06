@@ -1,0 +1,101 @@
+<!-- coaches.component.html -->
+   <!-- <h2>Coaches List</h2>
+<div *ngIf="coaches.length > 0">
+  <h2>Coaches List</h2>
+  <ul>
+    <li *ngFor="let coach of coaches">
+      <p>{{ coach.firstName }} {{ coach.lastName }}</p>
+      <p>{{ coach.email }}</p>
+      <button (click)="editCoach(coach)">Edit</button>
+    </li>
+  </ul>
+</div>
+<div *ngIf="coaches.length === 0">
+  <p>No coaches found.</p>
+</div> -->
+<!-- coaches.component.html -->
+<<!-- coaches.component.html -->
+<h2>Coaches List</h2>
+
+<div *ngIf="coaches.length > 0">
+  <ul>
+    <li *ngFor="let coach of coaches">
+      <p>First Name: {{ coach.firstName }}</p>
+      <p>Last Name: {{ coach.lastName }}</p>
+      <p>Nick Name: {{ coach.nickName }}</p>
+      <p>Birth Date: {{ coach.birthDate | date }}</p>
+      <p>Role: {{ coach.role }}</p>
+      <p>Email: {{ coach.email }}</p>
+      <p>Address: {{ coach.adresse }}</p>
+      <p>Phone Number: {{ coach.phoneNumber }}</p>
+      <p>Active: {{ coach.active }}</p>
+      <p>Approval Code: {{ coach.approvalCode }}</p>
+      <p>Is Approved: {{ coach.isApproved }}</p>
+      <p>Available: {{ coach.disponible }}</p>
+      <p>Created At: {{ coach.createdAt | date }}</p>
+      <p>Updated At: {{ coach.updatedAt | date }}</p>
+      <button (click)="editCoach(coach)">Edit</button>
+      <button (click)="deleteCoach(coach._id)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="coaches.length === 0">
+  <p>No coaches found.</p>
+</div>
+
+<!-- Edit Coach Form -->
+<div *ngIf="selectedCoach">
+  <h3>Edit Coach</h3>
+  <form [formGroup]="editCoachForm" (ngSubmit)="onSubmitEdit()">
+    <div>
+      <label for="firstName">First Name</label>
+      <input id="firstName" formControlName="firstName">
+    </div>
+    <div>
+      <label for="lastName">Last Name</label>
+      <input id="lastName" formControlName="lastName">
+    </div>
+    <div>
+      <label for="nickName">Nick Name</label>
+      <input id="nickName" formControlName="nickName">
+    </div>
+    <div>
+      <label for="birthDate">Birth Date</label>
+      <input id="birthDate" type="date" formControlName="birthDate">
+    </div>
+    <div>
+      <label for="role">Role</label>
+      <input id="role" formControlName="role">
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email">
+    </div>
+    <div>
+      <label for="adresse">Address</label>
+      <input id="adresse" formControlName="adresse">
+    </div>
+    <div>
+      <label for="phoneNumber">Phone Number</label>
+      <input id="phoneNumber" type="number" formControlName="phoneNumber">
+    </div>
+    <div>
+      <label for="active">Active</label>
+      <input id="active" type="checkbox" formControlName="active">
+    </div>
+    <div>
+      <label for="approvalCode">Approval Code</label>
+      <input id="approvalCode" formControlName="approvalCode">
+    </div>
+    <div>
+      <label for="isApproved">Is Approved</label>
+      <input id="isApproved" type="checkbox" formControlName="isApproved">
+    </div>
+    <div>
+      <label for="disponible">Available</label>
+      <input id="disponible" type="checkbox" formControlName="disponible">
+    </div>
+    <button type="submit">Save Changes</button>
+  </form>
+</div>

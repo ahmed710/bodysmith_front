@@ -1,0 +1,17 @@
+<!-- reservations.component.html -->
+<div *ngIf="reservations.length > 0">
+    <h2>Reservations List</h2>
+    <ul>
+      <li *ngFor="let reservation of reservations">
+        <p><b>User ID :</b>{{ reservation.User }}</p>
+        <p><b>Seance ID :</b>{{ reservation.seance }}</p>
+        
+        <!-- Display other reservation details as needed -->
+        <!-- <button (click)="updateReservation(id , reservation)">Edit</button> -->
+        <button (click)="deleteReservation(reservation.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="reservations.length === 0">
+    <p>No reservations found.</p>
+  </div>

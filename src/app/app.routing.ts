@@ -299,7 +299,22 @@ export const appRoutes: Route[] = [
 
                     {path: 'crypto', loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.module').then(m => m.CryptoModule)},
                     {path: 'categories', loadChildren: () => import('app/modules/admin/dashboards/commentaire/commentaire.module').then(m => m.CommentaireModule)},
-
+                    {path: 'dashboard', loadChildren: () => import('app/modules/admin/dashboards/dashboard/dashboard.module').then(m => m.DashboardModule)},
+                    {path: 'zouhour-coaches', loadChildren: () => import('app/modules/admin/dashboards/zouhour-coaches/zouhour-coaches.module').then(m => m.CoachesModule)},
+                    {
+                        path: 'reservations',
+                        loadChildren: () => import('app/modules/admin/dashboards/reservations/reservations.module').then(m => m.ReservationsModule)
+                    },
+                    {path: 'sessions', loadChildren: () => import('app/modules/admin/dashboards/sessions/sessions.module').then(m => m.SessionsModule)},
+                    {
+                        path: 'reservation',
+                        children: [{
+                            path: '',
+                            loadChildren: () => import('app/modules/admin/dashboards/reservations/reservations.module').then(m => m.ReservationsModule)
+                        }, {
+                            path: 'reserver',
+                            loadChildren: () => import('app/modules/admin/dashboards/reservations/reservations.module').then(m => m.ReservationsModule)
+                        }]},
                 ]},
             {
                 path: 'dashboards',

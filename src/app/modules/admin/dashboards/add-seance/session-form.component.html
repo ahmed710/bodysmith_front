@@ -1,0 +1,73 @@
+<form [formGroup]="seanceForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="typeEvent">Type Event</label>
+    <select formControlName="typeEvent" id="typeEvent">
+      <option value="SPINNING_COURSE">Spinning Course</option>
+      <option value="PRIVATE_COURSE">Private Course</option>
+      <option value="BODYCOMBAT_COURSE">BodyCombat Course</option>
+      <option value="ORIONTAL_DANCE_COURSE">Oriontal Dance Course</option>
+      <!-- Add more options if there are other types -->
+    </select>
+    <div *ngIf="seanceForm?.get('typeEvent')?.invalid && seanceForm?.get('typeEvent')?.touched">
+      Type Event is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="idSalleDeSport">Gym </label>
+    <input type="text" formControlName="idSalleDeSport" id="idSalleDeSport">
+    <div *ngIf="seanceForm?.get('idSalleDeSport')?.invalid && seanceForm?.get('idSalleDeSport')?.touched">
+      Gym ID is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="dateEvent">Event Date</label>
+    <input type="datetime-local" formControlName="dateEvent" id="dateEvent">
+    <div *ngIf="seanceForm?.get('dateEvent')?.invalid && seanceForm?.get('dateEvent')?.touched">
+      Event Date is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="nbrParticipant">Number of Participants</label>
+    <input type="number" formControlName="nbrParticipant" id="nbrParticipant" min="0">
+    <div *ngIf="seanceForm?.get('nbrParticipant')?.invalid && seanceForm?.get('nbrParticipant')?.touched">
+      Number of Participants is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="capacity">Capacity</label>
+    <input type="number" formControlName="capacity" id="capacity" min="1">
+    <div *ngIf="seanceForm?.get('capacity')?.invalid && seanceForm?.get('capacity')?.touched">
+      Capacity is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="heureDebutEvent">Start Time</label>
+    <input type="datetime-local" formControlName="heureDebutEvent" id="heureDebutEvent">
+    <div *ngIf="seanceForm?.get('heureDebutEvent')?.invalid && seanceForm?.get('heureDebutEvent')?.touched">
+      Start Time is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="duree">Duration (hours)</label>
+    <input type="number" formControlName="duree" id="duree" min="1">
+    <div *ngIf="seanceForm?.get('duree')?.invalid && seanceForm?.get('duree')?.touched">
+      Duration is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="coach">Coach ID</label>
+    <input type="text" formControlName="coach" id="coach">
+    <div *ngIf="seanceForm?.get('coach')?.invalid && seanceForm?.get('coach')?.touched">
+      Coach ID is required.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="seanceForm.invalid">Create Session</button>
+</form>
